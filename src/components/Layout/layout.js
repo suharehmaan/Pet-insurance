@@ -1,24 +1,25 @@
 
-import React, { useState, useEffect } from 'react';
-import { Box, CssBaseline, useMediaQuery, useTheme } from '@mui/material';
-import { useLocation } from 'react-router-dom';
-import Header from './Header';
-import CustomSidebar from '../sidebar/sideBar';
-import MainDashboard from '../content/MainDashboard';
-import Dashboard from '../content/dashboard';
-import PetsPage from '../pages/PetsPage';
-import ClaimsPage from '../pages/ClaimsPage';
-import PolicyPage from '../pages/PolicyPage';
-import SettingsPage from '../pages/SettingsPage';
-import SupportPage from '../pages/SupportPage';
+import React, { useState, useEffect } from "react";
+import { Box, CssBaseline, useMediaQuery, useTheme } from "@mui/material";
+import { useLocation, useNavigate } from "react-router-dom";
+import Header from "./Header";
+import CustomSidebar from "../sidebar/sideBar";
+import MainDashboard from "../content/MainDashboard";
+import PetsPage from "../pages/PetsPage";
+import ClaimsPage from "../pages/ClaimsPage";
+import PolicyPage from "../pages/PolicyPage";
+import SettingsPage from "../pages/SettingsPage";
+import SupportPage from "../pages/SupportPage";
+import Dashboard from "../content/dashboard";
 
-const Layout = ({ children }) => {
+const Layout = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [collapsed, setCollapsed] = useState(isMobile);
   const [mobileOpen, setMobileOpen] = useState(false);
   const sidebarWidth = collapsed ? "80px" : "250px";
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Auto-collapse sidebar on mobile
@@ -81,7 +82,7 @@ const Layout = ({ children }) => {
         component="main"
         sx={{
           flexGrow: 1,
-          width: { xs: '100%', md: `calc(100% - ${mobileOpen ? sidebarWidth : "0px"})` },
+          width: { xs: '100%', md: `calc(100% - ${sidebarWidth})` },
           transition: "width 0.3s ease, margin-left 0.3s ease",
         }}
       >

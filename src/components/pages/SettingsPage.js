@@ -1,72 +1,61 @@
-import React, { useState } from 'react';
-import {
-  Box,
-  Typography,
-  Paper,
-  Grid,
-  TextField,
-  Button,
-  Divider,
+import React, { useState } from "react";
+import { 
+  Box, 
+  Typography, 
+  Grid, 
+  Paper, 
+  Card, 
+  CardContent, 
+  TextField, 
+  Button, 
+  Switch, 
   FormControlLabel,
-  Switch,
+  Tabs,
+  Tab,
+  Avatar,
+  Divider,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
-  Avatar,
-  Card,
-  CardContent,
-  CardHeader,
   IconButton,
-  Tab,
-  Tabs
-} from '@mui/material';
+  Chip
+} from "@mui/material";
 import PersonIcon from '@mui/icons-material/Person';
+import SecurityIcon from '@mui/icons-material/Security';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PaymentIcon from '@mui/icons-material/Payment';
-import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import SecurityIcon from '@mui/icons-material/Security';
+import DeleteIcon from '@mui/icons-material/Delete';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import MobileFriendlyIcon from '@mui/icons-material/MobileFriendly';
 import EmailIcon from '@mui/icons-material/Email';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import AddIcon from '@mui/icons-material/Add';
+
 
 const SettingsPage = () => {
   const [tabValue, setTabValue] = useState(0);
+
+  // Mock profile data
   const [profileData, setProfileData] = useState({
     firstName: 'John',
-    lastName: 'Doe',
-    email: 'john.doe@example.com',
+    lastName: 'Smith',
+    email: 'john.smith@example.com',
     phone: '(555) 123-4567',
     address: '123 Main St',
-    city: 'New York',
-    state: 'NY',
-    zip: '10001',
+    city: 'Anytown',
+    state: 'CA',
+    zipCode: '12345'
   });
 
-  const [notifications, setNotifications] = useState({
-    email: true,
-    sms: false,
+  // Mock notification settings
+  const [notificationSettings, setNotificationSettings] = useState({
+    emailNotifications: true,
+    smsNotifications: false,
     pushNotifications: true,
-    marketingEmails: false,
+    marketingEmails: false
   });
-
-  const [paymentMethods, setPaymentMethods] = useState([
-    {
-      id: 1,
-      type: 'Visa',
-      last4: '4242',
-      expiry: '05/25',
-      isPrimary: true
-    },
-    {
-      id: 2,
-      type: 'Mastercard',
-      last4: '5555',
-      expiry: '08/24',
-      isPrimary: false
-    }
-  ]);
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
@@ -79,18 +68,11 @@ const SettingsPage = () => {
     });
   };
 
-  const handleNotificationChange = (name) => (event) => {
-    setNotifications({
-      ...notifications,
-      [name]: event.target.checked
+  const handleNotificationChange = (setting) => (e) => {
+    setNotificationSettings({
+      ...notificationSettings,
+      [setting]: e.target.checked
     });
-  };
-
-  const handleSetPrimaryPayment = (id) => {
-    setPaymentMethods(paymentMethods.map(method => ({
-      ...method,
-      isPrimary: method.id === id
-    })));
   };
 
   const renderTabContent = () => {
@@ -126,111 +108,117 @@ const SettingsPage = () => {
             </Grid>
 
             <Grid item xs={12} md={8}>
-              <Paper sx={{ p: 3 }}>
-                <Typography variant="h6" gutterBottom>Personal Information</Typography>
-                <Grid container spacing={2}>
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      fullWidth
-                      label="First Name"
-                      name="firstName"
-                      value={profileData.firstName}
-                      onChange={handleProfileChange}
-                      margin="normal"
-                    />
+              <Card>
+                <CardContent>
+                  <Typography variant="h6" gutterBottom>
+                    Personal Information
+                  </Typography>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        fullWidth
+                        label="First Name"
+                        name="firstName"
+                        value={profileData.firstName}
+                        onChange={handleProfileChange}
+                        margin="normal"
+                        variant="outlined"
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        fullWidth
+                        label="Last Name"
+                        name="lastName"
+                        value={profileData.lastName}
+                        onChange={handleProfileChange}
+                        margin="normal"
+                        variant="outlined"
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        fullWidth
+                        label="Email"
+                        name="email"
+                        value={profileData.email}
+                        onChange={handleProfileChange}
+                        margin="normal"
+                        variant="outlined"
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        fullWidth
+                        label="Phone"
+                        name="phone"
+                        value={profileData.phone}
+                        onChange={handleProfileChange}
+                        margin="normal"
+                        variant="outlined"
+                      />
+                    </Grid>
                   </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      fullWidth
-                      label="Last Name"
-                      name="lastName"
-                      value={profileData.lastName}
-                      onChange={handleProfileChange}
-                      margin="normal"
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      fullWidth
-                      label="Email"
-                      name="email"
-                      value={profileData.email}
-                      onChange={handleProfileChange}
-                      margin="normal"
-                      type="email"
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      fullWidth
-                      label="Phone"
-                      name="phone"
-                      value={profileData.phone}
-                      onChange={handleProfileChange}
-                      margin="normal"
-                    />
-                  </Grid>
-                </Grid>
 
-                <Typography variant="h6" sx={{ mt: 3 }} gutterBottom>Address</Typography>
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                    <TextField
-                      fullWidth
-                      label="Street Address"
-                      name="address"
-                      value={profileData.address}
-                      onChange={handleProfileChange}
-                      margin="normal"
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={4}>
-                    <TextField
-                      fullWidth
-                      label="City"
-                      name="city"
-                      value={profileData.city}
-                      onChange={handleProfileChange}
-                      margin="normal"
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={4}>
-                    <TextField
-                      fullWidth
-                      label="State"
-                      name="state"
-                      value={profileData.state}
-                      onChange={handleProfileChange}
-                      margin="normal"
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={4}>
-                    <TextField
-                      fullWidth
-                      label="ZIP Code"
-                      name="zip"
-                      value={profileData.zip}
-                      onChange={handleProfileChange}
-                      margin="normal"
-                    />
-                  </Grid>
-                </Grid>
+                  <Divider sx={{ my: 3 }} />
 
-                <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 3 }}>
-                  <Button variant="outlined" sx={{ mr: 1 }}>
-                    Cancel
-                  </Button>
-                  <Button 
-                    variant="contained" 
-                    sx={{ 
-                      backgroundColor: '#1E3A8A',
-                      '&:hover': { backgroundColor: '#152C6B' }
-                    }}
-                  >
-                    Save Changes
-                  </Button>
-                </Box>
-              </Paper>
+                  <Typography variant="h6" gutterBottom>
+                    Address
+                  </Typography>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <TextField
+                        fullWidth
+                        label="Street Address"
+                        name="address"
+                        value={profileData.address}
+                        onChange={handleProfileChange}
+                        margin="normal"
+                        variant="outlined"
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                      <TextField
+                        fullWidth
+                        label="City"
+                        name="city"
+                        value={profileData.city}
+                        onChange={handleProfileChange}
+                        margin="normal"
+                        variant="outlined"
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                      <TextField
+                        fullWidth
+                        label="State"
+                        name="state"
+                        value={profileData.state}
+                        onChange={handleProfileChange}
+                        margin="normal"
+                        variant="outlined"
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                      <TextField
+                        fullWidth
+                        label="Zip Code"
+                        name="zipCode"
+                        value={profileData.zipCode}
+                        onChange={handleProfileChange}
+                        margin="normal"
+                        variant="outlined"
+                      />
+                    </Grid>
+                  </Grid>
+
+                  <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
+                    <Button variant="contained" color="primary">
+                      Save Changes
+                    </Button>
+                  </Box>
+                </CardContent>
+              </Card>
             </Grid>
           </Grid>
         );
@@ -320,89 +308,110 @@ const SettingsPage = () => {
 
       case 2: // Notifications
         return (
-          <Paper sx={{ p: 3 }}>
-            <Typography variant="h6" gutterBottom>Notification Preferences</Typography>
+          <Card>
+            <CardContent>
+              <Typography variant="h6" gutterBottom>
+                Notification Preferences
+              </Typography>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={notificationSettings.emailNotifications}
+                        onChange={handleNotificationChange('emailNotifications')}
+                        color="primary"
+                      />
+                    }
+                    label="Email Notifications"
+                  />
+                  <Typography variant="body2" color="text.secondary" sx={{ ml: 4 }}>
+                    Receive updates about your policy, claims, and account via email
+                  </Typography>
+                </Grid>
 
-            <List>
-              <ListItem>
-                <ListItemIcon>
-                  <EmailIcon color="primary" />
-                </ListItemIcon>
-                <ListItemText 
-                  primary="Email Notifications" 
-                  secondary="Receive updates about your pet insurance policy" 
-                />
-                <Switch 
-                  checked={notifications.email} 
-                  onChange={handleNotificationChange('email')} 
-                  color="primary"
-                />
-              </ListItem>
-              <Divider variant="inset" component="li" />
+                <Grid item xs={12}>
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={notificationSettings.smsNotifications}
+                        onChange={handleNotificationChange('smsNotifications')}
+                        color="primary"
+                      />
+                    }
+                    label="SMS Notifications"
+                  />
+                  <Typography variant="body2" color="text.secondary" sx={{ ml: 4 }}>
+                    Receive text message alerts for important updates
+                  </Typography>
+                </Grid>
 
-              <ListItem>
-                <ListItemIcon>
-                  <MobileFriendlyIcon color="primary" />
-                </ListItemIcon>
-                <ListItemText 
-                  primary="SMS Notifications" 
-                  secondary="Get text messages for important updates" 
-                />
-                <Switch 
-                  checked={notifications.sms} 
-                  onChange={handleNotificationChange('sms')} 
-                  color="primary"
-                />
-              </ListItem>
-              <Divider variant="inset" component="li" />
+                <Grid item xs={12}>
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={notificationSettings.pushNotifications}
+                        onChange={handleNotificationChange('pushNotifications')}
+                        color="primary"
+                      />
+                    }
+                    label="Push Notifications"
+                  />
+                  <Typography variant="body2" color="text.secondary" sx={{ ml: 4 }}>
+                    Receive notifications in your browser
+                  </Typography>
+                </Grid>
 
-              <ListItem>
-                <ListItemIcon>
-                  <NotificationsIcon color="primary" />
-                </ListItemIcon>
-                <ListItemText 
-                  primary="Push Notifications" 
-                  secondary="Allow browser notifications when logged in" 
-                />
-                <Switch 
-                  checked={notifications.pushNotifications} 
-                  onChange={handleNotificationChange('pushNotifications')} 
-                  color="primary"
-                />
-              </ListItem>
-              <Divider variant="inset" component="li" />
+                <Grid item xs={12}>
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={notificationSettings.marketingEmails}
+                        onChange={handleNotificationChange('marketingEmails')}
+                        color="primary"
+                      />
+                    }
+                    label="Marketing Emails"
+                  />
+                  <Typography variant="body2" color="text.secondary" sx={{ ml: 4 }}>
+                    Receive promotional offers and newsletters
+                  </Typography>
+                </Grid>
+              </Grid>
 
-              <ListItem>
-                <ListItemIcon>
-                  <MailOutlineIcon color="primary" />
-                </ListItemIcon>
-                <ListItemText 
-                  primary="Marketing Emails" 
-                  secondary="Receive promotional offers and newsletters" 
-                />
-                <Switch 
-                  checked={notifications.marketingEmails} 
-                  onChange={handleNotificationChange('marketingEmails')} 
-                  color="primary"
-                />
-              </ListItem>
-            </List>
-
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 3 }}>
-              <Button 
-                variant="contained" 
-                sx={{ 
-                  backgroundColor: '#1E3A8A',
-                  '&:hover': { backgroundColor: '#152C6B' }
-                }}
-              >
-                Save Preferences
-              </Button>
-            </Box>
-          </Paper>
+              <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
+                <Button variant="contained" color="primary">
+                  Save Preferences
+                </Button>
+              </Box>
+            </CardContent>
+          </Card>
         );
 
       case 3: // Payment Methods
+        const [paymentMethods, setPaymentMethods] = useState([
+          {
+            id: 1,
+            type: 'Visa',
+            last4: '4242',
+            expiry: '05/25',
+            isPrimary: true
+          },
+          {
+            id: 2,
+            type: 'Mastercard',
+            last4: '5555',
+            expiry: '08/24',
+            isPrimary: false
+          }
+        ]);
+
+        const handleSetPrimaryPayment = (id) => {
+          setPaymentMethods(paymentMethods.map(method => ({
+            ...method,
+            isPrimary: method.id === id
+          })));
+        };
         return (
           <Paper sx={{ p: 3 }}>
             <Typography variant="h6" gutterBottom>Payment Methods</Typography>
@@ -518,7 +527,7 @@ const SettingsPage = () => {
                   fullWidth
                   label="ZIP Code"
                   disabled
-                  value={profileData.zip}
+                  value={profileData.zipCode}
                   margin="normal"
                 />
               </Grid>
@@ -527,13 +536,50 @@ const SettingsPage = () => {
         );
 
       default:
-        return null;
+        return (
+          <Box sx={{ p: 2 }}>
+            <Typography>Content for tab {tabValue} is under development</Typography>
+          </Box>
+        );
     }
   };
 
+  const ComputerIcon = () => <svg style={{ width: 24, height: 24 }} viewBox="0 0 24 24">
+    <path fill="currentColor" d="M21,16H3V4H21M21,2H3C1.89,2 1,2.89 1,4V16A2,2 0 0,0 3,18H10V20H8V22H16V20H14V18H21A2,2 0 0,0 23,16V4C23,2.89 22.1,2 21,2Z" />
+  </svg>;
+
+  const MailOutlineIcon = () => <svg style={{ width: 24, height: 24 }} viewBox="0 0 24 24">
+    <path fill="currentColor" d="M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4M20,18H4V8L12,13L20,8V18M20,6L12,11L4,6V6H20V6Z" />
+  </svg>;
+
+  const AddIcon = () => <svg style={{ width: 24, height: 24 }} viewBox="0 0 24 24">
+    <path fill="currentColor" d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
+  </svg>;
+
+  const Checkbox = ({ defaultChecked }) => <input type="checkbox" defaultChecked={defaultChecked} />;
+
+  const Chip = ({ label, size, color, sx }) => (
+    <Box 
+      sx={{ 
+        display: 'inline-flex',
+        alignItems: 'center',
+        bgcolor: '#E3F2FD',
+        color: '#1E3A8A',
+        borderRadius: '16px',
+        fontSize: size === 'small' ? '0.75rem' : '0.875rem',
+        padding: '0 12px',
+        height: size === 'small' ? '24px' : '32px',
+        ...sx 
+      }}
+    >
+      {label}
+    </Box>
+  );
+
+
   return (
-    <Box sx={{ p: 3 }}>
-      <Typography variant="h4" fontWeight={600} gutterBottom>
+    <Box>
+      <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, mb: 3 }}>
         Account Settings
       </Typography>
 
@@ -571,37 +617,5 @@ const SettingsPage = () => {
     </Box>
   );
 };
-
-const ComputerIcon = () => <svg style={{ width: 24, height: 24 }} viewBox="0 0 24 24">
-  <path fill="currentColor" d="M21,16H3V4H21M21,2H3C1.89,2 1,2.89 1,4V16A2,2 0 0,0 3,18H10V20H8V22H16V20H14V18H21A2,2 0 0,0 23,16V4C23,2.89 22.1,2 21,2Z" />
-</svg>;
-
-const MailOutlineIcon = () => <svg style={{ width: 24, height: 24 }} viewBox="0 0 24 24">
-  <path fill="currentColor" d="M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4M20,18H4V8L12,13L20,8V18M20,6L12,11L4,6V6H20V6Z" />
-</svg>;
-
-const AddIcon = () => <svg style={{ width: 24, height: 24 }} viewBox="0 0 24 24">
-  <path fill="currentColor" d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
-</svg>;
-
-const Checkbox = ({ defaultChecked }) => <input type="checkbox" defaultChecked={defaultChecked} />;
-
-const Chip = ({ label, size, color, sx }) => (
-  <Box 
-    sx={{ 
-      display: 'inline-flex',
-      alignItems: 'center',
-      bgcolor: '#E3F2FD',
-      color: '#1E3A8A',
-      borderRadius: '16px',
-      fontSize: size === 'small' ? '0.75rem' : '0.875rem',
-      padding: '0 12px',
-      height: size === 'small' ? '24px' : '32px',
-      ...sx 
-    }}
-  >
-    {label}
-  </Box>
-);
 
 export default SettingsPage;

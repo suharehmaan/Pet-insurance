@@ -3,18 +3,9 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import { ThemeProvider } from "./context/ThemeContext";
-import { Typography } from "@mui/material";
 import Layout from "./components/Layout/layout";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
-import Dashboard from "./components/content/dashboard";
-import PetsPage from "./components/pages/PetsPage";
-import ClaimsPage from "./components/pages/ClaimsPage";
-import PolicyPage from "./components/pages/PolicyPage";
-import SettingsPage from "./components/pages/SettingsPage";
-import SupportPage from "./components/pages/SupportPage";
-import MainDashboard from "./components/content/MainDashboard"; 
-import SearchResults from "./components/search/SearchResults";
 import "./App.css";
 
 // Protected route wrapper
