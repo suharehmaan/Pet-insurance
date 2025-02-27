@@ -1,0 +1,59 @@
+
+:root {
+  /* Primary Colors */
+  --primary-main: #1C3FEC;
+  --primary-light: #4169E1;
+  --primary-dark: #0B1F78;
+  --primary-contrast-text: #FFFFFF;
+  
+  /* Secondary Colors */
+  --secondary-main: #FFD700;
+  --secondary-light: #FFEB99;
+  --secondary-dark: #CC9900;
+  --secondary-contrast-text: #000000;
+  
+  /* UI Colors */
+  --background-default: #F5F7FA;
+  --background-paper: #FFFFFF;
+  --background-sidebar: #1C3FEC;
+  --divider: rgba(255, 255, 255, 0.3);
+  
+  /* Text Colors */
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --text-disabled: #999999;
+  --text-hint: #BBBBBB;
+  --text-light: #FFFFFF;
+  
+  /* Status Colors */
+  --status-success: #4CAF50;
+  --status-info: #2196F3;
+  --status-warning: #FF9800;
+  --status-error: #F44336;
+  
+  /* Font Families */
+  --font-heading: 'Montserrat', sans-serif;
+  --font-body: 'Lato', sans-serif;
+  
+  /* Font Weights */
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 48px;
+  
+  /* Border Radius */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-xl: 16px;
+  --border-radius-circle: 50%;
+}

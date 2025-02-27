@@ -26,8 +26,8 @@
   opacity: 0.8;
 }
 .MuiAppBar-root {
-  background-color: #1C3FEC !important;
-  color: white !important;
+  background-color: var(--primary-main, #1C3FEC) !important;
+  color: var(--primary-contrast-text, white) !important;
 }
 
 .MuiToolbar-root {
