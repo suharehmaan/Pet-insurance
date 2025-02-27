@@ -8,7 +8,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check if user is stored in localStorage on mount
+
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       setUser(JSON.parse(storedUser));
@@ -18,13 +18,13 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      // Mock API call and authentication
+
       setLoading(true);
       
-      // For demo, we'll just simulate network delay
+
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // In a real app, you would validate credentials with an API
+ 
       if (email === 'demo@example.com' && password === 'password') {
         const mockUser = {
           id: '12345',
@@ -61,10 +61,9 @@ export const AuthProvider = ({ children }) => {
   const register = async (name, email, password) => {
     try {
       setLoading(true);
-      // Simulate network request
+
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Mock registration success
+   
       const mockUser = {
         id: Math.random().toString(36).substring(2, 10),
         name: name,

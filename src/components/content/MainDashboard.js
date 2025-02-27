@@ -445,7 +445,7 @@ const MainDashboard = ({ onChatClick }) => {
         </Typography>
       </Box>
 
-      {/* Floating Chat Button component removed from here and managed in App.js */}
+    
     {/* Floating Chat Button */}
       <IconButton 
         onClick={onChatClick}

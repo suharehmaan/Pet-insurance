@@ -96,8 +96,8 @@ const CustomSidebar = ({ collapsed, setCollapsed, mobileOpen, setMobileOpen }) =
         menuItemStyles={{
           button: ({ active }) => ({
             backgroundColor: active ? "#27408B" : "transparent",
-            color: active ? "#FFD700" : "#1E90FF", // Blue text, yellow when active
-            borderBottom: "1px solid rgba(255, 255, 255, 0.2)", // More visible separator lines
+            color: active ? "#FFD700" : "#1E90FF", 
+            borderBottom: "1px solid rgba(255, 255, 255, 0.2)", 
             padding: "12px 20px",
             position: "relative",
             "&:after": {
@@ -286,7 +286,7 @@ const CustomSidebar = ({ collapsed, setCollapsed, mobileOpen, setMobileOpen }) =
       hysteresis={0.3}
       disableBackdropTransition={false}
       ModalProps={{
-        keepMounted: true, // Better mobile performance
+        keepMounted: true, 
       }}
       sx={{
         '& .MuiDrawer-paper': {
@@ -307,7 +307,7 @@ const CustomSidebar = ({ collapsed, setCollapsed, mobileOpen, setMobileOpen }) =
         top: 0,
         left: 0,
         [`.${menuClasses.container}`]: {
-          backgroundColor: "#1E3A8A", // Dark blue background
+          backgroundColor: "#1E3A8A", 
           color: "black",
           height: "100%",
           width: collapsed ? "80px" : "250px",

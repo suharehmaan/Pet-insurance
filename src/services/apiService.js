@@ -1,8 +1,8 @@
 
 // API Services for fetching data
-const API_DELAY = 800; // Simulate network delay
+const API_DELAY = 800; 
 
-// Mock data - in a real app this would come from backend
+
 const MOCK_PETS = [
   {
     id: 'pet-1',
@@ -171,20 +171,18 @@ export const fetchClaimsByPolicyId = async (policyId) => {
 };
 
 export const submitClaim = async (claimData) => {
-  await delay(1500); // Longer delay to simulate form submission
+  await delay(1500);
   
-  // Generate a new claim with submitted data
   const newClaim = {
     id: `claim-${Math.random().toString(36).substr(2, 9)}`,
     status: 'Pending',
-    date: new Date().toISOString().split('T')[0], // Today
+    date: new Date().toISOString().split('T')[0], 
     reimbursementDate: null,
     reimbursementAmount: null,
     ...claimData
   };
   
-  // In a real app, this would be saved to the database
-  // For mock purposes, we'll just return the created claim
+
   return newClaim;
 };
 

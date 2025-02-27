@@ -40,22 +40,22 @@ const ChatSupport = () => {
 
   useEffect(() => {
     if (user && open) {
-      // Subscribe to messages when component mounts and chat is open
+
       const unsubscribe = subscribeToMessages(user.id, (newMessages) => {
         setMessages(newMessages);
-        // Reset unread count when chat is open
+    
         setUnreadCount(0);
       });
       
-      // Clean up subscription when component unmounts
+
       return () => {
         unsubscribe();
       };
     } else if (user && !open) {
-      // When chat is closed but user is logged in, still listen for new messages
+   
       const unsubscribe = subscribeToMessages(user.id, (newMessages) => {
         setMessages(newMessages);
-        // Count new messages since last open
+    
         const previousCount = messages.length;
         const currentCount = newMessages.length;
         if (currentCount > previousCount) {
@@ -69,7 +69,7 @@ const ChatSupport = () => {
     }
   }, [user, open]);
 
-  // Scroll to bottom of messages whenever messages change
+
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
@@ -95,7 +95,6 @@ const ChatSupport = () => {
   const toggleChat = () => {
     setOpen(!open);
     if (!open) {
-      // Reset unread count when opening chat
       setUnreadCount(0);
     }
   };

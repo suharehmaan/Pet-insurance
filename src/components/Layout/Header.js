@@ -256,7 +256,7 @@ const Header = ({ sidebarWidth, onMenuClick, mobileOpen }) => {
             <MenuIcon />
           </IconButton>
           
-          {/* Search Bar - Adjusts width based on screen size */}
+   
           <Search sx={{ 
             flexGrow: { xs: 1, md: 0 },
             display: isSmall ? 'none' : 'block'
@@ -273,7 +273,7 @@ const Header = ({ sidebarWidth, onMenuClick, mobileOpen }) => {
             />
           </Search>
 
-          {/* Title shown on smaller screens */}
+      
           {isSmall && (
             <Typography
               variant="h6"
