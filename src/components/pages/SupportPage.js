@@ -1,210 +1,81 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import { 
   Box, 
   Typography, 
-  Grid, 
   Paper, 
-  Card, 
-  CardContent, 
-  TextField,
-  InputAdornment,
-  Tabs,
-  Tab
-} from "@mui/material";
-import HelpIcon from '@mui/icons-material/Help';
-import PhoneIcon from '@mui/icons-material/Phone';
-import ChatIcon from '@mui/icons-material/Chat';
-import SearchIcon from '@mui/icons-material/Search';
-
-const SupportPage = () => {
-  const [tabValue, setTabValue] = useState(0);
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const handleTabChange = (event, newValue) => {
-    setTabValue(newValue);
-  };
-
-  const renderTabContent = () => {
-    switch(tabValue) {
-      case 0: // Contact
-        return (
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={4}>
-              <Card sx={{ backgroundColor: '#f5f5f5', height: '100%' }}>
-                <CardContent sx={{ display: 'flex', alignItems: 'center' }}>
-                  <PhoneIcon color="primary" sx={{ mr: 2, fontSize: 32 }} />
-                  <Box>
-                    <Typography variant="h6">Phone Support</Typography>
-                    <Typography variant="body2">1-800-PET-HELP</Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Available Monday to Friday, 9AM - 5PM EST
-                    </Typography>
-                  </Box>
-                </CardContent>
-              </Card>
-            </Grid>
-
-            <Grid item xs={12} md={4}>
-              <Card sx={{ backgroundColor: '#f5f5f5', height: '100%' }}>
-                <CardContent sx={{ display: 'flex', alignItems: 'center' }}>
-                  <ChatIcon color="primary" sx={{ mr: 2, fontSize: 32 }} />
-                  <Box>
-                    <Typography variant="h6">Live Chat</Typography>
-                    <Typography variant="body2">Chat with our support team</Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Available 24/7
-                    </Typography>
-                  </Box>
-                </CardContent>
-              </Card>
-            </Grid>
-
-            <Grid item xs={12} md={4}>
-              <Card sx={{ backgroundColor: '#f5f5f5', height: '100%' }}>
-                <CardContent sx={{ display: 'flex', alignItems: 'center' }}>
-                  <HelpIcon color="primary" sx={{ mr: 2, fontSize: 32 }} />
-                  <Box>
-                    <Typography variant="h6">Email Support</Typography>
-                    <Typography variant="body2">support@petinsurance.com</Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      We typically respond within 24 hours
-                    </Typography>
-                  </Box>
-                </CardContent>
-              </Card>
-            </Grid>
-          </Grid>
-        );
-
-      case 1: // FAQs
-        return (
-          <Box>
-            <Box sx={{ mb: 4, maxWidth: 600, mx: 'auto' }}>
-              <TextField
-                fullWidth
-                placeholder="Search FAQs..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                variant="outlined"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon />
-                    </InputAdornment>
-                  )
-                }}
-              />
-            </Box>
-
-            <Card sx={{ mb: 2 }}>
-              <CardContent>
-                <Typography variant="h6">How do I submit a claim?</Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-                  You can submit a claim by logging into your account and navigating to the Claims section. 
-                  Upload your vet invoice and fill out the required information. 
-                  Claims are typically processed within 5-7 business days.
-                </Typography>
-              </CardContent>
-            </Card>
-
-            <Card sx={{ mb: 2 }}>
-              <CardContent>
-                <Typography variant="h6">What does my policy cover?</Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-                  Our comprehensive policy covers accidents, illnesses, surgeries, medications, and chronic conditions. 
-                  Wellness care is available as an add-on to your policy. For specific details about your coverage, 
-                  please refer to your policy documents or contact customer support.
-                </Typography>
-              </CardContent>
-            </Card>
-          </Box>
-        );
-
-      default:
-        return (
-          <Typography>
-            Content for tab {tabValue}
-          </Typography>
-        );
-    }
-  };
-
-  return (
-    <Box>
-      <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, mb: 3 }}>
-        Support Center
-      </Typography>
-
-      <Paper sx={{ p: 3, mb: 3 }}>
-        <Tabs 
-          value={tabValue} 
-          onChange={handleTabChange} 
-          sx={{ mb: 3 }}
-          variant="scrollable"
-          scrollButtons="auto"
-        >
-          <Tab label="Contact Us" />
-          <Tab label="FAQs" />
-          <Tab label="Help Center" />
-        </Tabs>
-
-        {renderTabContent()}
-      </Paper>
-    </Box>
-  );
-};
-
-export default SupportPage;
-import { 
-  Box, 
-  Typography, 
   Grid, 
-  Paper, 
   Card, 
   CardContent, 
   TextField, 
   Button, 
-  Accordion, 
-  AccordionSummary, 
+  InputAdornment,
+  Accordion,
+  AccordionSummary,
   AccordionDetails,
-  Divider,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
-  Avatar
-} from "@mui/material";
+  Divider,
+  Chip
+} from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import HelpIcon from '@mui/icons-material/Help';
-import PhoneIcon from '@mui/icons-material/Phone';
-import EmailIcon from '@mui/icons-material/Email';
-import ChatIcon from '@mui/icons-material/Chat';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-
+import ArticleIcon from '@mui/icons-material/Article';
+import ContactSupportIcon from '@mui/icons-material/ContactSupport';
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
+import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 const SupportPage = () => {
-  // Sample FAQs
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Mock FAQ data
   const faqs = [
     {
-      question: "How do I submit a claim?",
-      answer: "You can submit a claim through our online portal by clicking on 'Claims' in the sidebar, then 'Submit New Claim'. Alternatively, you can use our mobile app or email the claim details to claims@petinsurance.com."
+      question: "How do I file a claim?",
+      answer: "To file a claim, navigate to the Claims section and click on 'File New Claim'. Fill out the required information about the treatment your pet received, upload any relevant documents, and submit. Our team will review your claim within 5-7 business days."
     },
     {
-      question: "How long does it take to process a claim?",
-      answer: "Most claims are processed within 5-7 business days. Complex claims may take longer. You can check the status of your claim at any time through your account dashboard."
+      question: "What does my policy cover?",
+      answer: "Your specific coverage depends on your policy level. In general, our comprehensive plans cover accidents, illnesses, surgeries, medications, and emergency care. You can view your detailed coverage information in the Policy section. Some exclusions apply, such as pre-existing conditions."
     },
     {
-      question: "What is covered under my policy?",
-      answer: "Coverage depends on your specific policy. Generally, our policies cover accidents, illnesses, surgeries, and medications. Some policies also cover routine care, dental, and behavioral therapy. You can view your specific coverage details on your Policy page."
+      question: "How is my reimbursement calculated?",
+      answer: "After you meet your annual deductible, we reimburse up to 90% of eligible vet bills, depending on your plan. The reimbursement percentage is applied to the actual vet bill or our usual and customary fees, whichever is less. Your policy documents have specific details about your reimbursement structure."
     },
     {
-      question: "Can I add multiple pets to one policy?",
-      answer: "Each pet requires its own policy, but we offer multi-pet discounts when you insure more than one pet with us. Contact our customer service for more details."
+      question: "Can I add another pet to my policy?",
+      answer: "Yes! You can add additional pets to your policy by going to the Pets section and clicking 'Add Pet'. Each pet gets their own individual policy and customized premium. Multiple pet households receive a 5% discount on each additional pet."
     },
     {
-      question: "Is there a waiting period before coverage begins?",
-      answer: "Yes, there is typically a 14-day waiting period for illnesses and a 48-hour waiting period for accidents after your policy is activated."
+      question: "How do I update my payment method?",
+      answer: "To update your payment information, go to Settings > Payment Methods. You can add a new card, delete old payment methods, or change your default payment method. Your new payment method will be used for all future premium payments."
+    }
+  ];
+
+  // Mock support categories
+  const supportCategories = [
+    {
+      title: "Claims Help",
+      icon: <ReceiptLongIcon fontSize="large" />,
+      description: "Get help with filing or tracking claims"
+    },
+    {
+      title: "Policy Information",
+      icon: <ArticleIcon fontSize="large" />,
+      description: "Understanding coverage and benefits"
+    },
+    {
+      title: "Pet Health",
+      icon: <HealthAndSafetyIcon fontSize="large" />,
+      description: "Resources for pet health and wellness"
+    },
+    {
+      title: "Account Settings",
+      icon: <SettingsIcon fontSize="large" />,
+      description: "Manage your account and preferences"
     }
   ];
 
@@ -215,218 +86,236 @@ const SupportPage = () => {
         Support Center
       </Typography>
 
-      {/* Contact Cards */}
+      {/* Search Section */}
+      <Paper 
+        elevation={2}
+        sx={{ 
+          p: 4, 
+          mb: 4, 
+          textAlign: 'center',
+          backgroundImage: 'linear-gradient(to right, #e0f2ff, #f0f7ff)',
+          borderRadius: 2
+        }}
+      >
+        <Typography variant="h5" fontWeight={600} gutterBottom>
+          How can we help you today?
+        </Typography>
+        <Typography variant="body1" color="text.secondary" paragraph>
+          Search our knowledge base or browse common help topics below
+        </Typography>
+
+        <TextField
+          fullWidth
+          placeholder="Search for help topics..."
+          variant="outlined"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
+          sx={{ 
+            maxWidth: 600, 
+            mx: 'auto',
+            bgcolor: 'white',
+            borderRadius: 1,
+            '& .MuiOutlinedInput-root': {
+              borderRadius: 2
+            }
+          }}
+        />
+      </Paper>
+
+      {/* Support Categories */}
+      <Typography variant="h5" fontWeight={600} gutterBottom>
+        Help Categories
+      </Typography>
+
       <Grid container spacing={3} sx={{ mb: 4 }}>
-        <Grid item xs={12} md={4}>
-          <Card sx={{ height: '100%', bgcolor: '#f5f7fb' }}>
-            <CardContent sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                <Avatar sx={{ bgcolor: '#1E3A8A', mr: 2 }}>
-                  <PhoneIcon />
-                </Avatar>
-                <Typography variant="h6">Call Us</Typography>
-              </Box>
-              <Typography variant="body1" sx={{ mb: 1 }}>1-800-PET-HELP</Typography>
-              <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
-                <AccessTimeIcon fontSize="small" sx={{ mr: 1, color: 'text.secondary' }} />
-                <Typography variant="body2" color="text.secondary">
-                  Available 24/7 for emergencies
+        {supportCategories.map((category, index) => (
+          <Grid item xs={12} sm={6} md={3} key={index}>
+            <Card 
+              sx={{ 
+                textAlign: 'center', 
+                height: '100%',
+                transition: 'transform 0.2s',
+                '&:hover': {
+                  transform: 'translateY(-5px)',
+                  boxShadow: 3
+                },
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                p: 2
+              }}
+            >
+              <CardContent>
+                <Box sx={{ color: 'primary.main', mb: 2 }}>
+                  {category.icon}
+                </Box>
+                <Typography variant="h6" fontWeight={600} gutterBottom>
+                  {category.title}
                 </Typography>
-              </Box>
-              <Typography variant="body2" color="text.secondary">
-                Mon-Fri: 8am - 8pm EST
-              </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                Sat-Sun: 9am - 5pm EST
-              </Typography>
-              <Button 
-                variant="contained" 
-                sx={{ mt: 'auto', bgcolor: '#1E3A8A', '&:hover': { bgcolor: '#152c69' } }}
-              >
-                Call Now
-              </Button>
-            </CardContent>
-          </Card>
-        </Grid>
-
-        <Grid item xs={12} md={4}>
-          <Card sx={{ height: '100%', bgcolor: '#f5f7fb' }}>
-            <CardContent sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                <Avatar sx={{ bgcolor: '#1E3A8A', mr: 2 }}>
-                  <EmailIcon />
-                </Avatar>
-                <Typography variant="h6">Email Support</Typography>
-              </Box>
-              <Typography variant="body1" sx={{ mb: 1 }}>support@petinsurance.com</Typography>
-              <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
-                <AccessTimeIcon fontSize="small" sx={{ mr: 1, color: 'text.secondary' }} />
                 <Typography variant="body2" color="text.secondary">
-                  Response within 24 hours
+                  {category.description}
                 </Typography>
-              </Box>
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-                For non-urgent inquiries
-              </Typography>
-              <TextField
-                placeholder="Your email address"
-                variant="outlined"
-                fullWidth
-                size="small"
-                sx={{ mb: 2, mt: 'auto' }}
-              />
-              <Button 
-                variant="contained" 
-                sx={{ bgcolor: '#1E3A8A', '&:hover': { bgcolor: '#152c69' } }}
-              >
-                Email Us
-              </Button>
-            </CardContent>
-          </Card>
-        </Grid>
-
-        <Grid item xs={12} md={4}>
-          <Card sx={{ height: '100%', bgcolor: '#f5f7fb' }}>
-            <CardContent sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                <Avatar sx={{ bgcolor: '#1E3A8A', mr: 2 }}>
-                  <ChatIcon />
-                </Avatar>
-                <Typography variant="h6">Live Chat</Typography>
-              </Box>
-              <Typography variant="body1" sx={{ mb: 1 }}>Chat with a representative</Typography>
-              <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
-                <AccessTimeIcon fontSize="small" sx={{ mr: 1, color: 'text.secondary' }} />
-                <Typography variant="body2" color="text.secondary">
-                  Available now
-                </Typography>
-              </Box>
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                Quick responses for simple questions
-              </Typography>
-              <Button 
-                variant="contained" 
-                sx={{ mt: 'auto', bgcolor: '#1E3A8A', '&:hover': { bgcolor: '#152c69' } }}
-              >
-                Start Chat
-              </Button>
-            </CardContent>
-          </Card>
-        </Grid>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
       </Grid>
 
       {/* FAQs Section */}
-      <Typography variant="h5" fontWeight={600} gutterBottom sx={{ mt: 4 }}>
-        Frequently Asked Questions
-      </Typography>
+      <Paper elevation={2} sx={{ p: 3, mb: 4 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+          <HelpIcon color="primary" sx={{ mr: 1 }} />
+          <Typography variant="h5" fontWeight={600}>
+            Frequently Asked Questions
+          </Typography>
+        </Box>
 
-      <Paper elevation={2} sx={{ p: 3, mb: 4, borderRadius: 2 }}>
+        <Divider sx={{ mb: 3 }} />
+
         {faqs.map((faq, index) => (
-          <Accordion key={index} disableGutters elevation={0} sx={{ '&:before': { display: 'none' }, border: 0 }}>
+          <Accordion key={index} disableGutters elevation={0} sx={{ border: '1px solid #e0e0e0', mb: 1 }}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
-              sx={{ px: 0 }}
+              aria-controls={`faq-content-${index}`}
+              id={`faq-header-${index}`}
+              sx={{ backgroundColor: '#f9f9f9' }}
             >
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <HelpIcon color="primary" sx={{ mr: 2 }} />
-                <Typography variant="subtitle1" fontWeight={500}>{faq.question}</Typography>
-              </Box>
+              <Typography fontWeight={500}>{faq.question}</Typography>
             </AccordionSummary>
-            <AccordionDetails sx={{ pl: 6 }}>
-              <Typography variant="body1">{faq.answer}</Typography>
+            <AccordionDetails>
+              <Typography variant="body2" color="text.secondary">
+                {faq.answer}
+              </Typography>
             </AccordionDetails>
-            {index < faqs.length - 1 && <Divider sx={{ mt: 1 }} />}
           </Accordion>
         ))}
+
+        <Box sx={{ mt: 3, textAlign: 'center' }}>
+          <Button variant="outlined" color="primary">
+            View All FAQs
+          </Button>
+        </Box>
       </Paper>
 
-      {/* Contact Form */}
-      <Typography variant="h5" fontWeight={600} gutterBottom sx={{ mt: 4 }}>
-        Can't Find What You're Looking For?
-      </Typography>
+      {/* Contact Section */}
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={6}>
+          <Paper elevation={2} sx={{ p: 3, height: '100%' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+              <ContactSupportIcon color="primary" sx={{ mr: 1 }} />
+              <Typography variant="h5" fontWeight={600}>
+                Contact Support
+              </Typography>
+            </Box>
 
-      <Paper elevation={2} sx={{ p: 3, borderRadius: 2 }}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
-            <TextField
-              label="Your Name"
-              variant="outlined"
-              fullWidth
-              margin="normal"
-            />
-            <TextField
-              label="Email Address"
-              variant="outlined"
-              fullWidth
-              margin="normal"
-            />
-            <TextField
-              label="Subject"
-              variant="outlined"
-              fullWidth
-              margin="normal"
-            />
-            <TextField
-              label="Message"
-              variant="outlined"
-              fullWidth
-              multiline
-              rows={5}
-              margin="normal"
-            />
+            <Divider sx={{ mb: 3 }} />
+
+            <Typography variant="body1" paragraph>
+              Can't find what you're looking for? Our support team is ready to assist you.
+            </Typography>
+
+            <List>
+              <ListItem>
+                <ListItemIcon>
+                  <Chip label="Phone" color="primary" size="small" />
+                </ListItemIcon>
+                <ListItemText 
+                  primary="1-800-PET-HELP (1-800-738-4357)" 
+                  secondary="Available Monday-Friday, 8am-8pm EST"
+                />
+              </ListItem>
+              <ListItem>
+                <ListItemIcon>
+                  <Chip label="Email" color="primary" size="small" />
+                </ListItemIcon>
+                <ListItemText 
+                  primary="support@petsinsurance.com" 
+                  secondary="We typically respond within 24 hours"
+                />
+              </ListItem>
+              <ListItem>
+                <ListItemIcon>
+                  <Chip label="Live Chat" color="primary" size="small" />
+                </ListItemIcon>
+                <ListItemText 
+                  primary="Chat with a representative" 
+                  secondary="Available 24/7 for urgent matters"
+                />
+              </ListItem>
+            </List>
+          </Paper>
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <Paper elevation={2} sx={{ p: 3, height: '100%' }}>
+            <Typography variant="h5" fontWeight={600} gutterBottom>
+              Send Us a Message
+            </Typography>
+
+            <Divider sx={{ mb: 3 }} />
+
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="First Name"
+                  variant="outlined"
+                  size="small"
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="Last Name"
+                  variant="outlined"
+                  size="small"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Email Address"
+                  variant="outlined"
+                  size="small"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Subject"
+                  variant="outlined"
+                  size="small"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Message"
+                  variant="outlined"
+                  multiline
+                  rows={4}
+                />
+              </Grid>
+            </Grid>
+
             <Button 
               variant="contained" 
-              size="large"
-              sx={{ mt: 2, bgcolor: '#1E3A8A', '&:hover': { bgcolor: '#152c69' } }}
+              color="primary"
+              sx={{ mt: 2 }}
+              fullWidth
             >
-              Send Message
+              Submit Message
             </Button>
-          </Grid>
-
-          <Grid item xs={12} md={6}>
-            <Box sx={{ pl: { md: 4 }, mt: { xs: 3, md: 0 } }}>
-              <Typography variant="h6" gutterBottom>Our Support Team</Typography>
-              <Typography variant="body1" paragraph>
-                Our dedicated support team is here to help you with any questions or concerns you may have about your pet insurance policy.
-              </Typography>
-
-              <Typography variant="body1" paragraph>
-                We strive to provide exceptional customer service and will work with you to resolve any issues as quickly as possible.
-              </Typography>
-
-              <List>
-                <ListItem sx={{ px: 0 }}>
-                  <ListItemIcon>
-                    <CheckCircleIcon color="success" />
-                  </ListItemIcon>
-                  <ListItemText primary="Fast response times" />
-                </ListItem>
-
-                <ListItem sx={{ px: 0 }}>
-                  <ListItemIcon>
-                    <CheckCircleIcon color="success" />
-                  </ListItemIcon>
-                  <ListItemText primary="Expert pet insurance advisors" />
-                </ListItem>
-
-                <ListItem sx={{ px: 0 }}>
-                  <ListItemIcon>
-                    <CheckCircleIcon color="success" />
-                  </ListItemIcon>
-                  <ListItemText primary="Personalized service" />
-                </ListItem>
-
-                <ListItem sx={{ px: 0 }}>
-                  <ListItemIcon>
-                    <CheckCircleIcon color="success" />
-                  </ListItemIcon>
-                  <ListItemText primary="Multiple contact options" />
-                </ListItem>
-              </List>
-            </Box>
-          </Grid>
+          </Paper>
         </Grid>
-      </Paper>
+      </Grid>
     </Box>
   );
 };
