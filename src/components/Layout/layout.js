@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Box, CssBaseline, useMediaQuery, useTheme } from "@mui/material";
 import Header from "./Header";
 import CustomSidebar from "../sidebar/sideBar";
-import MainDashboard from "../content/MainDashboard";
 
-const Layout = () => {
+const Layout = ({ children }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [collapsed, setCollapsed] = useState(isMobile);
@@ -56,7 +55,7 @@ const Layout = () => {
 
         {/* Main Content */}
         <Box sx={{ p: { xs: 1, sm: 2, md: 3 } }}>
-          <MainDashboard />
+          {children}
         </Box>
       </Box>
     </Box>
