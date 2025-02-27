@@ -33,6 +33,9 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useThemeContext } from "../../context/ThemeContext";
 import "./header.css";
+import PersonIcon from '@mui/icons-material/Person'; // Added
+import SettingsIcon from '@mui/icons-material/Settings'; // Added
+import LogoutIcon from '@mui/icons-material/Logout'; // Added
 
 // Styled search component
 const Search = styled('div')(({ theme }) => ({

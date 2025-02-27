@@ -619,3 +619,447 @@ const SettingsPage = () => {
 };
 
 export default SettingsPage;
+import React, { useState } from "react";
+import { 
+  Box, 
+  Typography, 
+  Paper, 
+  Grid, 
+  TextField, 
+  Button, 
+  Switch, 
+  FormControlLabel, 
+  Divider, 
+  Avatar, 
+  IconButton,
+  Tab,
+  Tabs,
+  Alert
+} from "@mui/material";
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
+import SecurityIcon from '@mui/icons-material/Security';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import CreditCardIcon from '@mui/icons-material/CreditCard';
+import LanguageIcon from '@mui/icons-material/Language';
+import { useThemeContext } from "../../context/ThemeContext";
+
+const SettingsPage = () => {
+  const [activeTab, setActiveTab] = useState(0);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const { darkMode, toggleDarkMode } = useThemeContext();
+  
+  const handleTabChange = (event, newValue) => {
+    setActiveTab(newValue);
+  };
+  
+  const handleSave = () => {
+    setShowSuccess(true);
+    setTimeout(() => {
+      setShowSuccess(false);
+    }, 3000);
+  };
+
+  // Mock user data
+  const userData = {
+    firstName: "John",
+    lastName: "Doe",
+    email: "john.doe@example.com",
+    phone: "(555) 123-4567",
+    address: "123 Main Street",
+    city: "Anytown",
+    state: "CA",
+    zipCode: "12345"
+  };
+
+  return (
+    <Box>
+      {/* Page Header */}
+      <Typography variant="h4" fontWeight={600} gutterBottom>
+        Settings
+      </Typography>
+
+      {/* Success Alert */}
+      {showSuccess && (
+        <Alert 
+          severity="success" 
+          sx={{ mb: 3 }}
+          onClose={() => setShowSuccess(false)}
+        >
+          Settings saved successfully!
+        </Alert>
+      )}
+
+      {/* Settings Tabs */}
+      <Paper elevation={2} sx={{ mb: 3, borderRadius: 2 }}>
+        <Tabs 
+          value={activeTab} 
+          onChange={handleTabChange} 
+          variant="scrollable"
+          scrollButtons="auto"
+          sx={{ 
+            borderBottom: 1, 
+            borderColor: 'divider',
+            '& .MuiTab-root': { minHeight: 64 }
+          }}
+        >
+          <Tab 
+            label="Profile" 
+            icon={<Avatar sx={{ bgcolor: '#1E3A8A', width: 24, height: 24, fontSize: 14 }}>P</Avatar>} 
+            iconPosition="start" 
+          />
+          <Tab 
+            label="Security" 
+            icon={<SecurityIcon fontSize="small" />} 
+            iconPosition="start" 
+          />
+          <Tab 
+            label="Notifications" 
+            icon={<NotificationsIcon fontSize="small" />} 
+            iconPosition="start" 
+          />
+          <Tab 
+            label="Payment Methods" 
+            icon={<CreditCardIcon fontSize="small" />} 
+            iconPosition="start" 
+          />
+          <Tab 
+            label="Preferences" 
+            icon={<LanguageIcon fontSize="small" />}
+            iconPosition="start" 
+          />
+        </Tabs>
+      </Paper>
+
+      {/* Tab Content */}
+      <Paper elevation={2} sx={{ p: 3, borderRadius: 2 }}>
+        {/* Profile Tab */}
+        {activeTab === 0 && (
+          <Box>
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 4 }}>
+              <Avatar 
+                sx={{ 
+                  width: 100, 
+                  height: 100, 
+                  bgcolor: '#1E3A8A',
+                  fontSize: 36
+                }}
+              >
+                {userData.firstName.charAt(0)}{userData.lastName.charAt(0)}
+              </Avatar>
+              <Box sx={{ ml: 2, position: 'relative' }}>
+                <Typography variant="h6">
+                  {userData.firstName} {userData.lastName}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {userData.email}
+                </Typography>
+                <IconButton 
+                  sx={{ 
+                    position: 'absolute', 
+                    bottom: -10, 
+                    left: 0,
+                    bgcolor: '#1E3A8A',
+                    color: 'white',
+                    '&:hover': {
+                      bgcolor: '#152c69'
+                    }
+                  }}
+                  size="small"
+                >
+                  <PhotoCameraIcon fontSize="small" />
+                </IconButton>
+              </Box>
+            </Box>
+            
+            <Typography variant="h6" sx={{ mb: 2 }}>Personal Information</Typography>
+            
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label="First Name"
+                  defaultValue={userData.firstName}
+                  fullWidth
+                  margin="normal"
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label="Last Name"
+                  defaultValue={userData.lastName}
+                  fullWidth
+                  margin="normal"
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label="Email Address"
+                  defaultValue={userData.email}
+                  fullWidth
+                  margin="normal"
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label="Phone Number"
+                  defaultValue={userData.phone}
+                  fullWidth
+                  margin="normal"
+                />
+              </Grid>
+            </Grid>
+            
+            <Divider sx={{ my: 3 }} />
+            
+            <Typography variant="h6" sx={{ mb: 2 }}>Address Information</Typography>
+            
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  label="Street Address"
+                  defaultValue={userData.address}
+                  fullWidth
+                  margin="normal"
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} md={4}>
+                <TextField
+                  label="City"
+                  defaultValue={userData.city}
+                  fullWidth
+                  margin="normal"
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} md={4}>
+                <TextField
+                  label="State"
+                  defaultValue={userData.state}
+                  fullWidth
+                  margin="normal"
+                />
+              </Grid>
+              <Grid item xs={12} sm={6} md={4}>
+                <TextField
+                  label="Zip Code"
+                  defaultValue={userData.zipCode}
+                  fullWidth
+                  margin="normal"
+                />
+              </Grid>
+            </Grid>
+            
+            <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
+              <Button 
+                variant="outlined" 
+                sx={{ mr: 2 }}
+              >
+                Cancel
+              </Button>
+              <Button 
+                variant="contained"
+                onClick={handleSave} 
+                sx={{ bgcolor: '#1E3A8A', '&:hover': { bgcolor: '#152c69' } }}
+              >
+                Save Changes
+              </Button>
+            </Box>
+          </Box>
+        )}
+        
+        {/* Security Tab */}
+        {activeTab === 1 && (
+          <Box>
+            <Typography variant="h6" sx={{ mb: 3 }}>Password Settings</Typography>
+            
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  label="Current Password"
+                  type="password"
+                  fullWidth
+                  margin="normal"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="New Password"
+                  type="password"
+                  fullWidth
+                  margin="normal"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="Confirm New Password"
+                  type="password"
+                  fullWidth
+                  margin="normal"
+                />
+              </Grid>
+            </Grid>
+            
+            <Divider sx={{ my: 3 }} />
+            
+            <Typography variant="h6" sx={{ mb: 2 }}>Two-Factor Authentication</Typography>
+            
+            <FormControlLabel
+              control={<Switch color="primary" />}
+              label="Enable two-factor authentication"
+            />
+            
+            <Typography variant="body2" color="text.secondary" sx={{ mt: 1, mb: 3 }}>
+              Two-factor authentication adds an extra layer of security to your account.
+            </Typography>
+            
+            <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
+              <Button 
+                variant="contained"
+                onClick={handleSave} 
+                sx={{ bgcolor: '#1E3A8A', '&:hover': { bgcolor: '#152c69' } }}
+              >
+                Save Changes
+              </Button>
+            </Box>
+          </Box>
+        )}
+        
+        {/* Notifications Tab */}
+        {activeTab === 2 && (
+          <Box>
+            <Typography variant="h6" sx={{ mb: 3 }}>Notification Preferences</Typography>
+            
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={<Switch defaultChecked color="primary" />}
+                  label="Email Notifications"
+                />
+                <Typography variant="body2" color="text.secondary" sx={{ pl: 4 }}>
+                  Receive updates about your policy, claims, and important account information
+                </Typography>
+              </Grid>
+              
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={<Switch defaultChecked color="primary" />}
+                  label="SMS Notifications"
+                />
+                <Typography variant="body2" color="text.secondary" sx={{ pl: 4 }}>
+                  Get text alerts for urgent updates and claim status changes
+                </Typography>
+              </Grid>
+              
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={<Switch color="primary" />}
+                  label="Push Notifications"
+                />
+                <Typography variant="body2" color="text.secondary" sx={{ pl: 4 }}>
+                  Receive notifications on your mobile device
+                </Typography>
+              </Grid>
+              
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={<Switch defaultChecked color="primary" />}
+                  label="Marketing Communications"
+                />
+                <Typography variant="body2" color="text.secondary" sx={{ pl: 4 }}>
+                  Stay informed about new services, promotions, and pet health tips
+                </Typography>
+              </Grid>
+            </Grid>
+            
+            <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
+              <Button 
+                variant="contained"
+                onClick={handleSave} 
+                sx={{ bgcolor: '#1E3A8A', '&:hover': { bgcolor: '#152c69' } }}
+              >
+                Save Changes
+              </Button>
+            </Box>
+          </Box>
+        )}
+        
+        {/* Preferences Tab */}
+        {activeTab === 4 && (
+          <Box>
+            <Typography variant="h6" sx={{ mb: 3 }}>Application Preferences</Typography>
+            
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={
+                    <Switch 
+                      checked={darkMode} 
+                      onChange={toggleDarkMode} 
+                      color="primary" 
+                    />
+                  }
+                  label="Dark Mode"
+                />
+                <Typography variant="body2" color="text.secondary" sx={{ pl: 4 }}>
+                  Switch between light and dark theme
+                </Typography>
+              </Grid>
+              
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={<Switch defaultChecked color="primary" />}
+                  label="Show Policy Reminders"
+                />
+                <Typography variant="body2" color="text.secondary" sx={{ pl: 4 }}>
+                  Display reminders about upcoming policy renewals and payments
+                </Typography>
+              </Grid>
+              
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={<Switch defaultChecked color="primary" />}
+                  label="Auto-save Form Data"
+                />
+                <Typography variant="body2" color="text.secondary" sx={{ pl: 4 }}>
+                  Automatically save your progress when filling out forms
+                </Typography>
+              </Grid>
+            </Grid>
+            
+            <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
+              <Button 
+                variant="contained"
+                onClick={handleSave} 
+                sx={{ bgcolor: '#1E3A8A', '&:hover': { bgcolor: '#152c69' } }}
+              >
+                Save Preferences
+              </Button>
+            </Box>
+          </Box>
+        )}
+        
+        {/* Payment Methods Tab */}
+        {activeTab === 3 && (
+          <Box>
+            <Typography variant="h6" sx={{ mb: 3 }}>Payment Methods</Typography>
+            
+            <Typography variant="body1" sx={{ mb: 3 }}>
+              Manage your payment methods and billing preferences
+            </Typography>
+            
+            <Button 
+              variant="contained" 
+              sx={{ mb: 3, bgcolor: '#1E3A8A', '&:hover': { bgcolor: '#152c69' } }}
+            >
+              Add Payment Method
+            </Button>
+            
+            <Typography variant="body1" sx={{ mt: 3, fontStyle: 'italic', color: 'text.secondary' }}>
+              No payment methods added yet.
+            </Typography>
+          </Box>
+        )}
+      </Paper>
+    </Box>
+  );
+};
+
+export default SettingsPage;

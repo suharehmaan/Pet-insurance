@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Box, CssBaseline, useMediaQuery, useTheme } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -34,28 +33,36 @@ const Layout = () => {
     }
   };
 
-  // Render content based on current path
+  // Import all page components
+  import MainDashboard from "../content/MainDashboard";
+  import PetsPage from "../pages/PetsPage";
+  import ClaimsPage from "../pages/ClaimsPage";
+  import PolicyPage from "../pages/PolicyPage";
+  import SupportPage from "../pages/SupportPage";
+  import SettingsPage from "../pages/SettingsPage";
+
+  // Function to render the appropriate content based on the current route
   const renderContent = () => {
     const path = location.pathname;
-    
-    if (path === '/' || path === '/dashboard') {
+
+    if (path === '/dashboard' || path === '/') {
       return <MainDashboard />;
+    } else if (path.startsWith('/support')) {
+      return <SupportPage />;
     } else if (path === '/pets') {
       return <PetsPage />;
     } else if (path === '/claims') {
       return <ClaimsPage />;
     } else if (path === '/policies') {
       return <PolicyPage />;
+    } else if (path === '/profile') {
+      return <div>Profile Page</div>; // Placeholder, needs a ProfilePage component
     } else if (path === '/settings') {
       return <SettingsPage />;
-    } else if (path.includes('/support')) {
-      return <SupportPage />;
-    } else if (path.includes('/profile')) {
-      return <PetsPage />; // Using PetsPage for now as per the App.js route
-    } else if (path.includes('/insight')) {
-      return <Dashboard />; // Using Dashboard for Insights
+    } else if (path === '/search') {
+      return <div>Search Results</div>; // Placeholder, needs a SearchResults component
     } else {
-      return <MainDashboard />; // Default fallback
+      return <div>Page Not Found</div>; // Placeholder, consider a dedicated 404 page
     }
   };
 
