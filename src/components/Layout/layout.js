@@ -21,7 +21,6 @@ const Layout = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Auto-collapse sidebar on mobile
     setCollapsed(isMobile);
   }, [isMobile]);
 
@@ -33,7 +32,6 @@ const Layout = () => {
     }
   };
 
-  // Function to render the appropriate content based on the current route
   const renderContent = () => {
     const path = location.pathname;
 
@@ -48,15 +46,15 @@ const Layout = () => {
     } else if (path === '/policies') {
       return <PolicyPage />;
     } else if (path === '/profile') {
-      return <div>Profile Page</div>; // Placeholder, needs a ProfilePage component
+      return <div>Profile Page</div>;
     } else if (path === '/settings') {
       return <SettingsPage />;
     } else if (path === '/search') {
-      return <div>Search Results</div>; // Placeholder, needs a SearchResults component
+      return <div>Search Results</div>;
     } else if (path.startsWith('/insight')) {
-      return <div>Insights Page</div>; // Placeholder for Insights
+      return <div>Insights Page</div>;
     } else {
-      return <div>Page Not Found</div>; // Placeholder, consider a dedicated 404 page
+      return <div>Page Not Found</div>;
     }
   };
 
@@ -65,11 +63,11 @@ const Layout = () => {
       display: "flex", 
       flexDirection: "column",
       height: "100vh",
-      overflow: "hidden"
+      overflow: "hidden",
+      backgroundColor: theme.palette.mode === 'dark' ? 'background.default' : '#f5f7fa'
     }}>
       <CssBaseline />
       <Box sx={{ display: "flex", flexGrow: 1, overflow: "hidden" }}>
-        {/* Sidebar */}
         <Box 
           sx={{ 
             width: { xs: mobileOpen ? sidebarWidth : '0px', md: sidebarWidth }, 
@@ -83,7 +81,6 @@ const Layout = () => {
           <CustomSidebar collapsed={collapsed} setCollapsed={setCollapsed} />
         </Box>
 
-        {/* Main Content Area */}
         <Box
           component="main"
           sx={{
@@ -97,10 +94,8 @@ const Layout = () => {
             overflow: "auto"
           }}
         >
-          {/* Header - now positioned at the top of the main content area */}
           <Header sidebarWidth={sidebarWidth} onMenuClick={toggleSidebar} />
           
-          {/* Content Area */}
           <Box sx={{ 
             p: { xs: 1, sm: 2, md: 3 },
             flexGrow: 1,
