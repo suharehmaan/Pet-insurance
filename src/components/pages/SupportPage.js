@@ -155,7 +155,6 @@ const SupportPage = () => {
 };
 
 export default SupportPage;
-import React from "react";
 import { 
   Box, 
   Typography, 
@@ -181,6 +180,8 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import ChatIcon from '@mui/icons-material/Chat';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+
 
 const SupportPage = () => {
   // Sample FAQs
@@ -247,7 +248,7 @@ const SupportPage = () => {
             </CardContent>
           </Card>
         </Grid>
-        
+
         <Grid item xs={12} md={4}>
           <Card sx={{ height: '100%', bgcolor: '#f5f7fb' }}>
             <CardContent sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -283,7 +284,7 @@ const SupportPage = () => {
             </CardContent>
           </Card>
         </Grid>
-        
+
         <Grid item xs={12} md={4}>
           <Card sx={{ height: '100%', bgcolor: '#f5f7fb' }}>
             <CardContent sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -318,7 +319,7 @@ const SupportPage = () => {
       <Typography variant="h5" fontWeight={600} gutterBottom sx={{ mt: 4 }}>
         Frequently Asked Questions
       </Typography>
-      
+
       <Paper elevation={2} sx={{ p: 3, mb: 4, borderRadius: 2 }}>
         {faqs.map((faq, index) => (
           <Accordion key={index} disableGutters elevation={0} sx={{ '&:before': { display: 'none' }, border: 0 }}>
@@ -343,7 +344,7 @@ const SupportPage = () => {
       <Typography variant="h5" fontWeight={600} gutterBottom sx={{ mt: 4 }}>
         Can't Find What You're Looking For?
       </Typography>
-      
+
       <Paper elevation={2} sx={{ p: 3, borderRadius: 2 }}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
@@ -381,18 +382,18 @@ const SupportPage = () => {
               Send Message
             </Button>
           </Grid>
-          
+
           <Grid item xs={12} md={6}>
             <Box sx={{ pl: { md: 4 }, mt: { xs: 3, md: 0 } }}>
               <Typography variant="h6" gutterBottom>Our Support Team</Typography>
               <Typography variant="body1" paragraph>
                 Our dedicated support team is here to help you with any questions or concerns you may have about your pet insurance policy.
               </Typography>
-              
+
               <Typography variant="body1" paragraph>
                 We strive to provide exceptional customer service and will work with you to resolve any issues as quickly as possible.
               </Typography>
-              
+
               <List>
                 <ListItem sx={{ px: 0 }}>
                   <ListItemIcon>
@@ -400,21 +401,21 @@ const SupportPage = () => {
                   </ListItemIcon>
                   <ListItemText primary="Fast response times" />
                 </ListItem>
-                
+
                 <ListItem sx={{ px: 0 }}>
                   <ListItemIcon>
                     <CheckCircleIcon color="success" />
                   </ListItemIcon>
                   <ListItemText primary="Expert pet insurance advisors" />
                 </ListItem>
-                
+
                 <ListItem sx={{ px: 0 }}>
                   <ListItemIcon>
                     <CheckCircleIcon color="success" />
                   </ListItemIcon>
                   <ListItemText primary="Personalized service" />
                 </ListItem>
-                
+
                 <ListItem sx={{ px: 0 }}>
                   <ListItemIcon>
                     <CheckCircleIcon color="success" />

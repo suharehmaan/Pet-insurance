@@ -34,7 +34,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useThemeContext } from "../../context/ThemeContext";
 import "./header.css";
 import PersonIcon from '@mui/icons-material/Person'; // Added
-import SettingsIcon from '@mui/icons-material/Settings'; // Added
+// SettingsIcon is already imported elsewhere
 import LogoutIcon from '@mui/icons-material/Logout'; // Added
 
 // Styled search component

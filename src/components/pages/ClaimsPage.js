@@ -56,7 +56,6 @@ const ClaimsPage = () => {
 };
 
 export default ClaimsPage;
-import React, { useState } from "react";
 import { 
   Box, 
   Typography, 
@@ -255,7 +254,7 @@ const ClaimsPage = () => {
             </IconButton>
           </Box>
         </Box>
-        
+
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="claims table">
             <TableHead>
@@ -292,7 +291,7 @@ const ClaimsPage = () => {
             </TableBody>
           </Table>
         </TableContainer>
-        
+
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
@@ -308,3 +307,4 @@ const ClaimsPage = () => {
 };
 
 export default ClaimsPage;
+import React, { useState } from "react";

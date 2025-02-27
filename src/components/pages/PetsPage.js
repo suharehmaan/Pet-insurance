@@ -39,7 +39,6 @@ const PetsPage = () => {
 };
 
 export default PetsPage;
-import React, { useState } from "react";
 import { 
   Box, 
   Typography, 
@@ -142,13 +141,13 @@ const PetsPage = () => {
                     </IconButton>
                   </Tooltip>
                 </Box>
-                
+
                 <Chip 
                   icon={<PetsIcon />} 
                   label={`${pet.species} - ${pet.breed}`} 
                   sx={{ mb: 2, bgcolor: '#f0f7ff' }} 
                 />
-                
+
                 <Grid container spacing={2} sx={{ mt: 1 }}>
                   <Grid item xs={6}>
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -161,7 +160,7 @@ const PetsPage = () => {
                       </Box>
                     </Box>
                   </Grid>
-                  
+
                   <Grid item xs={6}>
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
                       <Avatar sx={{ bgcolor: '#e0f2fe', width: 32, height: 32, mr: 1 }}>
@@ -173,7 +172,7 @@ const PetsPage = () => {
                       </Box>
                     </Box>
                   </Grid>
-                  
+
                   <Grid item xs={6}>
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
                       <Avatar sx={{ bgcolor: '#e0f2fe', width: 32, height: 32, mr: 1 }}>
@@ -185,7 +184,7 @@ const PetsPage = () => {
                       </Box>
                     </Box>
                   </Grid>
-                  
+
                   <Grid item xs={6}>
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
                       <Avatar sx={{ bgcolor: '#e0f2fe', width: 32, height: 32, mr: 1 }}>
@@ -199,9 +198,9 @@ const PetsPage = () => {
                   </Grid>
                 </Grid>
               </CardContent>
-              
+
               <Divider />
-              
+
               <Box sx={{ display: 'flex', justifyContent: 'space-between', p: 2 }}>
                 <Button size="small" color="primary">View Records</Button>
                 <Button size="small" color="primary">Schedule Visit</Button>

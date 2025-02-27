@@ -77,7 +77,7 @@ const PolicyPage = () => {
 };
 
 export default PolicyPage;
-import React from "react";
+// React is already imported
 import { 
   Box, 
   Typography, 
@@ -155,11 +155,11 @@ const PolicyPage = () => {
                 sx={{ ml: 2 }} 
               />
             </Box>
-            
+
             <Typography variant="body2" color="text.secondary" gutterBottom>
               Policy ID: {policy.id}
             </Typography>
-            
+
             <Grid container sx={{ mt: 3 }}>
               <Grid item xs={12} sm={4}>
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
@@ -170,7 +170,7 @@ const PolicyPage = () => {
                   </Box>
                 </Box>
               </Grid>
-              
+
               <Grid item xs={12} sm={4}>
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                   <CalendarMonthIcon color="primary" sx={{ mr: 1 }} />
@@ -180,7 +180,7 @@ const PolicyPage = () => {
                   </Box>
                 </Box>
               </Grid>
-              
+
               <Grid item xs={12} sm={4}>
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                   <AccountBalanceIcon color="primary" sx={{ mr: 1 }} />
@@ -191,9 +191,9 @@ const PolicyPage = () => {
                 </Box>
               </Grid>
             </Grid>
-            
+
             <Divider sx={{ my: 2 }} />
-            
+
             <Grid container>
               <Grid item xs={12} sm={4}>
                 <Box sx={{ mb: 2 }}>
@@ -201,14 +201,14 @@ const PolicyPage = () => {
                   <Typography variant="h6">${policy.deductible}</Typography>
                 </Box>
               </Grid>
-              
+
               <Grid item xs={12} sm={4}>
                 <Box sx={{ mb: 2 }}>
                   <Typography variant="body2" color="text.secondary">Annual Limit</Typography>
                   <Typography variant="h6">${policy.annualLimit}</Typography>
                 </Box>
               </Grid>
-              
+
               <Grid item xs={12} sm={4}>
                 <Box sx={{ mb: 2 }}>
                   <Typography variant="body2" color="text.secondary">Reimbursement</Typography>
@@ -216,7 +216,7 @@ const PolicyPage = () => {
                 </Box>
               </Grid>
             </Grid>
-            
+
             <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
               <Button variant="contained" sx={{ bgcolor: '#1E3A8A', '&:hover': { bgcolor: '#152c69' } }}>
                 View Documents
@@ -224,7 +224,7 @@ const PolicyPage = () => {
               <Button variant="outlined">Modify Coverage</Button>
             </Stack>
           </Grid>
-          
+
           <Grid item xs={12} md={4}>
             <Card sx={{ bgcolor: '#f0f7ff', height: '100%' }}>
               <CardContent>
@@ -232,7 +232,7 @@ const PolicyPage = () => {
                   <PetsIcon sx={{ mr: 1, color: '#1E3A8A' }} />
                   <Typography variant="h6">Insured Pet</Typography>
                 </Box>
-                
+
                 <Box sx={{ p: 2, bgcolor: 'white', borderRadius: 1, mb: 2 }}>
                   <Typography variant="h5" gutterBottom>{policy.pet.name}</Typography>
                   <Typography variant="body1">{policy.pet.breed}</Typography>
@@ -240,7 +240,7 @@ const PolicyPage = () => {
                     {policy.pet.type}, {policy.pet.age} years old
                   </Typography>
                 </Box>
-                
+
                 <Button 
                   variant="outlined" 
                   fullWidth
@@ -258,7 +258,7 @@ const PolicyPage = () => {
       <Typography variant="h5" fontWeight={600} gutterBottom sx={{ mt: 4 }}>
         Coverage Details
       </Typography>
-      
+
       <Grid container spacing={3}>
         <Grid item xs={12} md={8}>
           <Paper elevation={2} sx={{ p: 3, borderRadius: 2 }}>
@@ -283,7 +283,7 @@ const PolicyPage = () => {
             </List>
           </Paper>
         </Grid>
-        
+
         <Grid item xs={12} md={4}>
           <Card sx={{ mb: 3 }}>
             <CardContent>
@@ -303,7 +303,7 @@ const PolicyPage = () => {
               </Button>
             </CardContent>
           </Card>
-          
+
           <Card>
             <CardContent>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>

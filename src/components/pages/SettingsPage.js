@@ -647,11 +647,11 @@ const SettingsPage = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [showSuccess, setShowSuccess] = useState(false);
   const { darkMode, toggleDarkMode } = useThemeContext();
-  
+
   const handleTabChange = (event, newValue) => {
     setActiveTab(newValue);
   };
-  
+
   const handleSave = () => {
     setShowSuccess(true);
     setTimeout(() => {
@@ -770,9 +770,9 @@ const SettingsPage = () => {
                 </IconButton>
               </Box>
             </Box>
-            
+
             <Typography variant="h6" sx={{ mb: 2 }}>Personal Information</Typography>
-            
+
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -807,11 +807,11 @@ const SettingsPage = () => {
                 />
               </Grid>
             </Grid>
-            
+
             <Divider sx={{ my: 3 }} />
-            
+
             <Typography variant="h6" sx={{ mb: 2 }}>Address Information</Typography>
-            
+
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -846,7 +846,7 @@ const SettingsPage = () => {
                 />
               </Grid>
             </Grid>
-            
+
             <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
               <Button 
                 variant="outlined" 
@@ -864,12 +864,12 @@ const SettingsPage = () => {
             </Box>
           </Box>
         )}
-        
+
         {/* Security Tab */}
         {activeTab === 1 && (
           <Box>
             <Typography variant="h6" sx={{ mb: 3 }}>Password Settings</Typography>
-            
+
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -896,20 +896,20 @@ const SettingsPage = () => {
                 />
               </Grid>
             </Grid>
-            
+
             <Divider sx={{ my: 3 }} />
-            
+
             <Typography variant="h6" sx={{ mb: 2 }}>Two-Factor Authentication</Typography>
-            
+
             <FormControlLabel
               control={<Switch color="primary" />}
               label="Enable two-factor authentication"
             />
-            
+
             <Typography variant="body2" color="text.secondary" sx={{ mt: 1, mb: 3 }}>
               Two-factor authentication adds an extra layer of security to your account.
             </Typography>
-            
+
             <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
               <Button 
                 variant="contained"
@@ -921,12 +921,12 @@ const SettingsPage = () => {
             </Box>
           </Box>
         )}
-        
+
         {/* Notifications Tab */}
         {activeTab === 2 && (
           <Box>
             <Typography variant="h6" sx={{ mb: 3 }}>Notification Preferences</Typography>
-            
+
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <FormControlLabel
@@ -937,7 +937,7 @@ const SettingsPage = () => {
                   Receive updates about your policy, claims, and important account information
                 </Typography>
               </Grid>
-              
+
               <Grid item xs={12}>
                 <FormControlLabel
                   control={<Switch defaultChecked color="primary" />}
@@ -947,7 +947,7 @@ const SettingsPage = () => {
                   Get text alerts for urgent updates and claim status changes
                 </Typography>
               </Grid>
-              
+
               <Grid item xs={12}>
                 <FormControlLabel
                   control={<Switch color="primary" />}
@@ -957,7 +957,7 @@ const SettingsPage = () => {
                   Receive notifications on your mobile device
                 </Typography>
               </Grid>
-              
+
               <Grid item xs={12}>
                 <FormControlLabel
                   control={<Switch defaultChecked color="primary" />}
@@ -968,7 +968,7 @@ const SettingsPage = () => {
                 </Typography>
               </Grid>
             </Grid>
-            
+
             <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
               <Button 
                 variant="contained"
@@ -980,12 +980,12 @@ const SettingsPage = () => {
             </Box>
           </Box>
         )}
-        
+
         {/* Preferences Tab */}
         {activeTab === 4 && (
           <Box>
             <Typography variant="h6" sx={{ mb: 3 }}>Application Preferences</Typography>
-            
+
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <FormControlLabel
@@ -1002,7 +1002,7 @@ const SettingsPage = () => {
                   Switch between light and dark theme
                 </Typography>
               </Grid>
-              
+
               <Grid item xs={12}>
                 <FormControlLabel
                   control={<Switch defaultChecked color="primary" />}
@@ -1012,7 +1012,7 @@ const SettingsPage = () => {
                   Display reminders about upcoming policy renewals and payments
                 </Typography>
               </Grid>
-              
+
               <Grid item xs={12}>
                 <FormControlLabel
                   control={<Switch defaultChecked color="primary" />}
@@ -1023,7 +1023,7 @@ const SettingsPage = () => {
                 </Typography>
               </Grid>
             </Grid>
-            
+
             <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
               <Button 
                 variant="contained"
@@ -1035,23 +1035,23 @@ const SettingsPage = () => {
             </Box>
           </Box>
         )}
-        
+
         {/* Payment Methods Tab */}
         {activeTab === 3 && (
           <Box>
             <Typography variant="h6" sx={{ mb: 3 }}>Payment Methods</Typography>
-            
+
             <Typography variant="body1" sx={{ mb: 3 }}>
               Manage your payment methods and billing preferences
             </Typography>
-            
+
             <Button 
               variant="contained" 
               sx={{ mb: 3, bgcolor: '#1E3A8A', '&:hover': { bgcolor: '#152c69' } }}
             >
               Add Payment Method
             </Button>
-            
+
             <Typography variant="body1" sx={{ mt: 3, fontStyle: 'italic', color: 'text.secondary' }}>
               No payment methods added yet.
             </Typography>
