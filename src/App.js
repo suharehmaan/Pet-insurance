@@ -45,106 +45,78 @@ function App() {
             {/* Main application routes (protected) */}
             <Route path="/" element={
               <ProtectedRoute>
-                <Layout>
-                  <MainDashboard />
-                </Layout>
+                <Layout />
               </ProtectedRoute>
             } />
             <Route path="/dashboard" element={
               <ProtectedRoute>
-                <Layout>
-                  <MainDashboard />
-                </Layout>
+                <Layout />
               </ProtectedRoute>
             } />
             <Route path="/pets" element={
               <ProtectedRoute>
-                <Layout>
-                  <PetsPage />
-                </Layout>
+                <Layout />
               </ProtectedRoute>
             } />
             <Route path="/claims" element={
               <ProtectedRoute>
-                <Layout>
-                  <ClaimsPage />
-                </Layout>
+                <Layout />
               </ProtectedRoute>
             } />
             <Route path="/policies" element={
               <ProtectedRoute>
-                <Layout>
-                  <PolicyPage />
-                </Layout>
+                <Layout />
               </ProtectedRoute>
             } />
             <Route path="/profile" element={
               <ProtectedRoute>
-                <Layout>
-                  <PetsPage />
-                </Layout>
+                <Layout />
               </ProtectedRoute>
             } />
             <Route path="/settings" element={
               <ProtectedRoute>
-                <Layout>
-                  <SettingsPage />
-                </Layout>
+                <Layout />
               </ProtectedRoute>
             } />
             
             {/* Support routes with nested paths */}
             <Route path="/support" element={
               <ProtectedRoute>
-                <Layout>
-                  <SupportPage />
-                </Layout>
+                <Layout />
               </ProtectedRoute>
             } />
             <Route path="/support/chat" element={
               <ProtectedRoute>
-                <Layout>
-                  <SupportPage />
-                </Layout>
+                <Layout />
               </ProtectedRoute>
             } />
             <Route path="/support/faqs" element={
               <ProtectedRoute>
-                <Layout>
-                  <SupportPage />
-                </Layout>
+                <Layout />
               </ProtectedRoute>
             } />
             <Route path="/support/contact" element={
               <ProtectedRoute>
-                <Layout>
-                  <SupportPage />
-                </Layout>
+                <Layout />
               </ProtectedRoute>
             } />
             
             {/* Search route */}
             <Route path="/search" element={
               <ProtectedRoute>
-                <Layout>
-                  <SearchResults />
-                </Layout>
+                <Layout />
               </ProtectedRoute>
             } />
             
             {/* Insight routes */}
             <Route path="/insight/reports" element={
               <ProtectedRoute>
-                <Layout>
-                  <Typography variant="h4" sx={{ p: 3 }}>Reports Dashboard</Typography>
-                </Layout>
+                <Layout />
               </ProtectedRoute>
             } />
             <Route path="/insight/analytics" element={
               <ProtectedRoute>
-                <Layout>
-                  <Typography variant="h4" sx={{ p: 3 }}>Analytics Dashboard</Typography>
-                </Layout>
+                <Layout />
               </ProtectedRoute>
             } />
             

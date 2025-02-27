@@ -1,7 +1,16 @@
+
 import React, { useState, useEffect } from 'react';
 import { Box, CssBaseline, useMediaQuery, useTheme } from '@mui/material';
+import { useLocation } from 'react-router-dom';
 import Header from './Header';
 import CustomSidebar from '../sidebar/sideBar';
+import MainDashboard from '../content/MainDashboard';
+import Dashboard from '../content/dashboard';
+import PetsPage from '../pages/PetsPage';
+import ClaimsPage from '../pages/ClaimsPage';
+import PolicyPage from '../pages/PolicyPage';
+import SettingsPage from '../pages/SettingsPage';
+import SupportPage from '../pages/SupportPage';
 
 const Layout = ({ children }) => {
   const theme = useTheme();
@@ -9,6 +18,7 @@ const Layout = ({ children }) => {
   const [collapsed, setCollapsed] = useState(isMobile);
   const [mobileOpen, setMobileOpen] = useState(false);
   const sidebarWidth = collapsed ? "80px" : "250px";
+  const location = useLocation();
 
   useEffect(() => {
     // Auto-collapse sidebar on mobile
@@ -20,6 +30,31 @@ const Layout = ({ children }) => {
       setMobileOpen(!mobileOpen);
     } else {
       setCollapsed(!collapsed);
+    }
+  };
+
+  // Render content based on current path
+  const renderContent = () => {
+    const path = location.pathname;
+    
+    if (path === '/' || path === '/dashboard') {
+      return <MainDashboard />;
+    } else if (path === '/pets') {
+      return <PetsPage />;
+    } else if (path === '/claims') {
+      return <ClaimsPage />;
+    } else if (path === '/policies') {
+      return <PolicyPage />;
+    } else if (path === '/settings') {
+      return <SettingsPage />;
+    } else if (path.includes('/support')) {
+      return <SupportPage />;
+    } else if (path.includes('/profile')) {
+      return <PetsPage />; // Using PetsPage for now as per the App.js route
+    } else if (path.includes('/insight')) {
+      return <Dashboard />; // Using Dashboard for Insights
+    } else {
+      return <MainDashboard />; // Default fallback
     }
   };
 
@@ -55,7 +90,7 @@ const Layout = ({ children }) => {
 
         {/* Main Content */}
         <Box sx={{ p: { xs: 1, sm: 2, md: 3 } }}>
-          {children}
+          {renderContent()}
         </Box>
       </Box>
     </Box>
