@@ -1,19 +1,7 @@
 
-import React, { useState } from 'react';
+import React from "react";
 import { useNavigate, useLocation } from 'react-router-dom';
-import { 
-  Drawer, 
-  List, 
-  ListItem, 
-  ListItemIcon, 
-  ListItemText, 
-  Collapse, 
-  Box, 
-  IconButton, 
-  Divider,
-  useTheme,
-  useMediaQuery
-} from '@mui/material';
+import { Sidebar as ProSidebar, Menu, MenuItem, SubMenu, menuClasses } from "react-pro-sidebar";
 import { 
   Dashboard as DashboardIcon,
   Pets as PetsIcon,
@@ -26,12 +14,14 @@ import {
   QuestionAnswer as FAQIcon,
   ContactMail as ContactIcon,
   ChevronLeft as ChevronLeftIcon,
+  ChevronRight as ChevronRightIcon,
   ExpandLess as ExpandLessIcon,
   ExpandMore as ExpandMoreIcon,
   Insights as InsightsIcon,
   Assessment as ReportsIcon,
   Analytics as AnalyticsIcon
 } from '@mui/icons-material';
+import { IconButton, useTheme, useMediaQuery } from '@mui/material';
 
 const CustomSidebar = ({ collapsed, setCollapsed }) => {
   const theme = useTheme();
@@ -39,21 +29,8 @@ const CustomSidebar = ({ collapsed, setCollapsed }) => {
   const navigate = useNavigate();
   const location = useLocation();
   
-  // State for nested menu items
-  const [open, setOpen] = useState({
-    support: location.pathname.includes('/support'),
-    insights: location.pathname.includes('/insight')
-  });
-
-  const handleToggleCollapse = () => {
+  const toggleSidebar = () => {
     setCollapsed(!collapsed);
-  };
-
-  const handleToggleNested = (section) => {
-    setOpen({
-      ...open,
-      [section]: !open[section]
-    });
   };
 
   const handleNavigate = (path) => {
@@ -63,193 +40,251 @@ const CustomSidebar = ({ collapsed, setCollapsed }) => {
     }
   };
 
-  const mainMenuItems = [
-    { text: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard' },
-    { text: 'Pets', icon: <PetsIcon />, path: '/pets' },
-    { text: 'Claims', icon: <ReceiptIcon />, path: '/claims' },
-    { text: 'Policies', icon: <PolicyIcon />, path: '/policies' },
-    { text: 'Profile', icon: <PersonIcon />, path: '/profile' },
-    { text: 'Settings', icon: <SettingsIcon />, path: '/settings' },
-  ];
-
-  const drawerWidth = collapsed ? 64 : 240;
-
   return (
-    <Drawer
-      variant={isMobile ? "temporary" : "permanent"}
-      open={!isMobile || !collapsed}
-      onClose={isMobile ? () => setCollapsed(true) : undefined}
-      sx={{
-        width: drawerWidth,
-        flexShrink: 0,
-        '& .MuiDrawer-paper': {
-          width: drawerWidth,
-          boxSizing: 'border-box',
-          transition: theme.transitions.create(['width'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-          }),
-          overflowX: 'hidden',
+    <ProSidebar
+      collapsed={collapsed}
+      rootStyles={{
+        height: "100vh",
+        position: "sticky",
+        top: 0,
+        left: 0,
+        [`.${menuClasses.container}`]: {
+          backgroundColor: "#1E3A8A", // Dark blue background
+          color: "black",
+          height: "100%",
+          width: collapsed ? "80px" : "250px",
+          position: "fixed",
+          top: 0,
+          left: 0,
+          transition: "width 0.3s ease",
+          display: "flex",
+          flexDirection: "column",
+          overflowY: "auto",
+          zIndex: 1100,
         },
       }}
     >
-      <Box sx={{ 
-        display: 'flex', 
-        alignItems: 'center', 
-        justifyContent: collapsed ? 'center' : 'flex-end',
-        padding: 1
-      }}>
+      {/* Logo and Collapse Button */}
+      <div
+        style={{
+          padding: "20px",
+          textAlign: "center",
+          flexShrink: 0,
+          borderBottom: "1px solid rgba(255, 255, 255, 0.2)",
+        }}
+      >
+        {collapsed ? (
+          <img
+            src="/logo.webp"
+            alt="Logo"
+            style={{
+              width: "40px",
+              height: "40px",
+              objectFit: "contain",
+            }}
+          />
+        ) : (
+          <img
+            src="/logo.webp"
+            alt="Logo"
+            style={{
+              width: "140px",
+              height: "auto",
+              maxHeight: "60px",
+              objectFit: "contain",
+            }}
+          />
+        )}
         {!isMobile && (
-          <IconButton onClick={handleToggleCollapse}>
-            <ChevronLeftIcon />
+          <IconButton onClick={toggleSidebar} style={{ color: "white", marginTop: "10px" }}>
+            {collapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         )}
-      </Box>
-      <Divider />
-      
-      <Box sx={{ overflow: 'auto' }}>
-        <List>
-          {mainMenuItems.map((item) => (
-            <ListItem 
-              button 
-              key={item.text}
-              onClick={() => handleNavigate(item.path)}
-              selected={location.pathname === item.path}
-              sx={{
-                minHeight: 48,
-                px: 2.5,
-                justifyContent: collapsed ? 'center' : 'initial',
-              }}
-            >
-              <ListItemIcon sx={{ minWidth: 0, mr: collapsed ? 0 : 3, justifyContent: 'center' }}>
-                {item.icon}
-              </ListItemIcon>
-              {!collapsed && <ListItemText primary={item.text} />}
-            </ListItem>
-          ))}
+      </div>
 
-          {/* Support Submenu */}
-          <ListItem 
-            button 
-            onClick={() => handleToggleNested('support')}
-            selected={location.pathname.includes('/support') && location.pathname === '/support'}
-            sx={{
-              minHeight: 48,
-              px: 2.5,
-              justifyContent: collapsed ? 'center' : 'initial',
+      {/* Menu Items */}
+      <Menu
+        menuItemStyles={{
+          button: ({ active }) => ({
+            backgroundColor: active ? "#27408B" : "transparent",
+            color: active ? "#FFD700" : "#1E90FF", // Blue text, yellow when active
+            borderBottom: "1px solid rgba(255, 255, 255, 0.2)", // More visible separator lines
+            padding: "12px 20px",
+            position: "relative",
+            "&:after": {
+              content: '""',
+              position: "absolute",
+              bottom: 0,
+              left: collapsed ? "15%" : "10%",
+              width: collapsed ? "70%" : "80%",
+              height: "1px",
+              backgroundColor: "rgba(255, 255, 255, 0.3)",
+            },
+            "&:hover": {
+              backgroundColor: "#4169e1",
+              color: "#FFD700",
+            },
+          }),
+        }}
+      >
+        {/* Dashboard */}
+        <MenuItem 
+          icon={<DashboardIcon />} 
+          onClick={() => handleNavigate('/dashboard')}
+          active={location.pathname === '/dashboard' || location.pathname === '/'}
+        >
+          {!collapsed && "Dashboard"}
+        </MenuItem>
+        
+        {/* Pets */}
+        <MenuItem 
+          icon={<PetsIcon />} 
+          onClick={() => handleNavigate('/pets')}
+          active={location.pathname === '/pets'}
+        >
+          {!collapsed && "Pets"}
+        </MenuItem>
+        
+        {/* Claims */}
+        <MenuItem 
+          icon={<ReceiptIcon />}
+          onClick={() => handleNavigate('/claims')}
+          active={location.pathname === '/claims'}
+        >
+          {!collapsed && "Claims"}
+        </MenuItem>
+        
+        {/* Policies */}
+        <MenuItem 
+          icon={<PolicyIcon />}
+          onClick={() => handleNavigate('/policies')}
+          active={location.pathname === '/policies'}
+        >
+          {!collapsed && "Policies"}
+        </MenuItem>
+        
+        {/* Profile */}
+        <MenuItem 
+          icon={<PersonIcon />}
+          onClick={() => handleNavigate('/profile')}
+          active={location.pathname === '/profile'}
+        >
+          {!collapsed && "Profile"}
+        </MenuItem>
+        
+        {/* Settings */}
+        <MenuItem 
+          icon={<SettingsIcon />}
+          onClick={() => handleNavigate('/settings')}
+          active={location.pathname === '/settings'}
+        >
+          {!collapsed && "Settings"}
+        </MenuItem>
+        
+        {/* Support */}
+        <SubMenu 
+          label="Support" 
+          icon={<SupportIcon />}
+          active={location.pathname.includes('/support')}
+          defaultOpen={location.pathname.includes('/support')}
+          rootStyles={{
+            ['& > ul']: {
+              backgroundColor: 'rgba(0, 0, 0, 0.2)',
+            },
+          }}
+        >
+          <MenuItem 
+            icon={<SupportIcon />}
+            onClick={() => handleNavigate('/support')}
+            active={location.pathname === '/support'}
+            style={{ 
+              borderBottom: "1px solid rgba(255, 255, 255, 0.15)",
+              position: "relative",
+              paddingLeft: "35px"
             }}
           >
-            <ListItemIcon sx={{ minWidth: 0, mr: collapsed ? 0 : 3, justifyContent: 'center' }}>
-              <SupportIcon />
-            </ListItemIcon>
-            {!collapsed && (
-              <>
-                <ListItemText primary="Support" />
-                {open.support ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-              </>
-            )}
-          </ListItem>
-
-          <Collapse in={open.support && !collapsed} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <ListItem 
-                button 
-                onClick={() => handleNavigate('/support')}
-                selected={location.pathname === '/support'}
-                sx={{ pl: 4 }}
-              >
-                <ListItemIcon>
-                  <SupportIcon />
-                </ListItemIcon>
-                <ListItemText primary="Main Support" />
-              </ListItem>
-              <ListItem 
-                button 
-                onClick={() => handleNavigate('/support/chat')}
-                selected={location.pathname === '/support/chat'}
-                sx={{ pl: 4 }}
-              >
-                <ListItemIcon>
-                  <ChatIcon />
-                </ListItemIcon>
-                <ListItemText primary="Chat" />
-              </ListItem>
-              <ListItem 
-                button 
-                onClick={() => handleNavigate('/support/faqs')}
-                selected={location.pathname === '/support/faqs'}
-                sx={{ pl: 4 }}
-              >
-                <ListItemIcon>
-                  <FAQIcon />
-                </ListItemIcon>
-                <ListItemText primary="FAQs" />
-              </ListItem>
-              <ListItem 
-                button 
-                onClick={() => handleNavigate('/support/contact')}
-                selected={location.pathname === '/support/contact'}
-                sx={{ pl: 4 }}
-              >
-                <ListItemIcon>
-                  <ContactIcon />
-                </ListItemIcon>
-                <ListItemText primary="Contact" />
-              </ListItem>
-            </List>
-          </Collapse>
-
-          {/* Insights Submenu */}
-          <ListItem 
-            button 
-            onClick={() => handleToggleNested('insights')}
-            selected={location.pathname.includes('/insight') && location.pathname === '/insight'}
-            sx={{
-              minHeight: 48,
-              px: 2.5,
-              justifyContent: collapsed ? 'center' : 'initial',
+            Main Support
+          </MenuItem>
+          <MenuItem 
+            icon={<ChatIcon />}
+            onClick={() => handleNavigate('/support/chat')}
+            active={location.pathname === '/support/chat'}
+            style={{ 
+              borderBottom: "1px solid rgba(255, 255, 255, 0.15)",
+              position: "relative",
+              paddingLeft: "35px"
             }}
           >
-            <ListItemIcon sx={{ minWidth: 0, mr: collapsed ? 0 : 3, justifyContent: 'center' }}>
-              <InsightsIcon />
-            </ListItemIcon>
-            {!collapsed && (
-              <>
-                <ListItemText primary="Insights" />
-                {open.insights ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-              </>
-            )}
-          </ListItem>
+            Chat
+          </MenuItem>
+          <MenuItem 
+            icon={<FAQIcon />}
+            onClick={() => handleNavigate('/support/faqs')}
+            active={location.pathname === '/support/faqs'}
+            style={{ 
+              borderBottom: "1px solid rgba(255, 255, 255, 0.15)",
+              position: "relative",
+              paddingLeft: "35px"
+            }}
+          >
+            FAQs
+          </MenuItem>
+          <MenuItem 
+            icon={<ContactIcon />}
+            onClick={() => handleNavigate('/support/contact')}
+            active={location.pathname === '/support/contact'}
+            style={{ 
+              borderBottom: "1px solid rgba(255, 255, 255, 0.15)",
+              position: "relative",
+              paddingLeft: "35px"
+            }}
+          >
+            Contact
+          </MenuItem>
+        </SubMenu>
 
-          <Collapse in={open.insights && !collapsed} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <ListItem 
-                button 
-                onClick={() => handleNavigate('/insight/reports')}
-                selected={location.pathname === '/insight/reports'}
-                sx={{ pl: 4 }}
-              >
-                <ListItemIcon>
-                  <ReportsIcon />
-                </ListItemIcon>
-                <ListItemText primary="Reports" />
-              </ListItem>
-              <ListItem 
-                button 
-                onClick={() => handleNavigate('/insight/analytics')}
-                selected={location.pathname === '/insight/analytics'}
-                sx={{ pl: 4 }}
-              >
-                <ListItemIcon>
-                  <AnalyticsIcon />
-                </ListItemIcon>
-                <ListItemText primary="Analytics" />
-              </ListItem>
-            </List>
-          </Collapse>
-        </List>
-      </Box>
-    </Drawer>
+        {/* Insights */}
+        <SubMenu 
+          label="Insights" 
+          icon={<InsightsIcon />}
+          active={location.pathname.includes('/insight')}
+          defaultOpen={location.pathname.includes('/insight')}
+          rootStyles={{
+            ['& > ul']: {
+              backgroundColor: 'rgba(0, 0, 0, 0.2)',
+            },
+          }}
+        >
+          <MenuItem 
+            icon={<ReportsIcon />}
+            onClick={() => handleNavigate('/insight/reports')}
+            active={location.pathname === '/insight/reports'}
+            style={{ 
+              borderBottom: "1px solid rgba(255, 255, 255, 0.15)",
+              position: "relative",
+              paddingLeft: "35px"
+            }}
+          >
+            Reports
+          </MenuItem>
+          <MenuItem 
+            icon={<AnalyticsIcon />}
+            onClick={() => handleNavigate('/insight/analytics')}
+            active={location.pathname === '/insight/analytics'}
+            style={{ 
+              borderBottom: "1px solid rgba(255, 255, 255, 0.15)",
+              position: "relative",
+              paddingLeft: "35px"
+            }}
+          >
+            Analytics
+          </MenuItem>
+        </SubMenu>
+      </Menu>
+
+      {/* Spacer to ensure sidebar fills height */}
+      <div style={{ flexGrow: 1 }}></div>
+    </ProSidebar>
   );
 };
 

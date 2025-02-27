@@ -61,38 +61,53 @@ const Layout = () => {
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ 
+      display: "flex", 
+      flexDirection: "column",
+      height: "100vh",
+      overflow: "hidden"
+    }}>
       <CssBaseline />
-      {/* Sidebar - Hidden by default on mobile, shown when toggled */}
-      <Box 
-        sx={{ 
-          width: { xs: '0px', md: sidebarWidth }, 
-          flexShrink: 0,
-          transition: "width 0.3s ease",
-          position: { xs: 'fixed', md: 'static' },
-          zIndex: theme.zIndex.drawer + 1,
-          height: '100%',
-          display: { xs: mobileOpen ? 'block' : 'none', md: 'block' }
-        }}
-      >
-        <CustomSidebar collapsed={collapsed} setCollapsed={setCollapsed} />
-      </Box>
+      <Box sx={{ display: "flex", flexGrow: 1, overflow: "hidden" }}>
+        {/* Sidebar */}
+        <Box 
+          sx={{ 
+            width: { xs: mobileOpen ? sidebarWidth : '0px', md: sidebarWidth }, 
+            flexShrink: 0,
+            transition: "width 0.3s ease",
+            height: "100vh",
+            position: "fixed",
+            zIndex: theme.zIndex.drawer + 1
+          }}
+        >
+          <CustomSidebar collapsed={collapsed} setCollapsed={setCollapsed} />
+        </Box>
 
-      {/* Header and Main Content */}
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          width: { xs: '100%', md: `calc(100% - ${sidebarWidth})` },
-          transition: "width 0.3s ease, margin-left 0.3s ease",
-        }}
-      >
-        {/* Header */}
-        <Header sidebarWidth={sidebarWidth} onMenuClick={toggleSidebar} />
-
-        {/* Main Content */}
-        <Box sx={{ p: { xs: 1, sm: 2, md: 3 } }}>
-          {renderContent()}
+        {/* Main Content Area */}
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 1,
+            width: { xs: '100%', md: `calc(100% - ${sidebarWidth})` },
+            marginLeft: { xs: 0, md: sidebarWidth },
+            transition: "margin-left 0.3s ease, width 0.3s ease",
+            display: "flex",
+            flexDirection: "column",
+            height: "100vh",
+            overflow: "auto"
+          }}
+        >
+          {/* Header - now positioned at the top of the main content area */}
+          <Header sidebarWidth={sidebarWidth} onMenuClick={toggleSidebar} />
+          
+          {/* Content Area */}
+          <Box sx={{ 
+            p: { xs: 1, sm: 2, md: 3 },
+            flexGrow: 1,
+            overflowY: "auto"
+          }}>
+            {renderContent()}
+          </Box>
         </Box>
       </Box>
     </Box>
