@@ -10,6 +10,7 @@ import ClaimsPage from "../pages/ClaimsPage";
 import PolicyPage from "../pages/PolicyPage";
 import SettingsPage from "../pages/SettingsPage";
 import SupportPage from "../pages/SupportPage";
+import ProfilePage from "../pages/ProfilePage";
 
 const Layout = () => {
   const theme = useTheme();
@@ -46,13 +47,13 @@ const Layout = () => {
     } else if (path === '/policies') {
       return <PolicyPage />;
     } else if (path === '/profile') {
-      return <div>Profile Page</div>;
+      return <ProfilePage />;
     } else if (path === '/settings') {
       return <SettingsPage />;
     } else if (path === '/search') {
       return <div>Search Results</div>;
     } else if (path.startsWith('/insight')) {
-      return <div>Insights Page</div>;
+      return <SettingsPage />;
     } else {
       return <div>Page Not Found</div>;
     }

@@ -39,7 +39,7 @@ import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
 import { useAuth } from "../../context/AuthContext";
 import { useThemeContext } from "../../context/ThemeContext";
 
-const MainDashboard = () => {
+const MainDashboard = ({ onChatClick }) => {
   const [policyData, setPolicyData] = useState(null);
   const [petsData, setPetsData] = useState([]);
   const [claimsData, setClaimsData] = useState([]);
@@ -445,8 +445,10 @@ const MainDashboard = () => {
         </Typography>
       </Box>
 
-      {/* Floating Chat Button */}
+      {/* Floating Chat Button component removed from here and managed in App.js */}
+    {/* Floating Chat Button */}
       <IconButton 
+        onClick={onChatClick}
         sx={{ 
           position: 'fixed', 
           bottom: 20, 

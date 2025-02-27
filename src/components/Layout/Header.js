@@ -1,38 +1,38 @@
 
-import React, { useState } from "react";
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  IconButton,
-  Avatar,
-  Menu,
-  MenuItem,
-  ListItemIcon,
-  ListItemText,
+import React, { useState } from 'react';
+import { 
+  AppBar, 
+  Box, 
+  Toolbar, 
+  IconButton, 
+  InputBase, 
+  Badge, 
+  MenuItem, 
+  Menu, 
+  Typography, 
   Divider,
-  InputBase,
-  alpha,
-  styled,
-  Box,
+  Avatar,
   Tooltip,
-  Badge,
-  Switch,
   useTheme,
-} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
+  useMediaQuery
+} from '@mui/material';
 import {
-  Person as ProfileIcon,
-  Settings as SettingsIcon,
-  ExitToApp as LogoutIcon,
+  Search as SearchIcon,
+  Mail as MailIcon,
   Notifications as NotificationsIcon,
-  Brightness4 as Brightness4Icon,
-  Brightness7 as Brightness7Icon,
-} from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
-import { useThemeContext } from "../../context/ThemeContext";
+  MoreVert as MoreIcon,
+  Menu as MenuIcon,
+  Brightness4 as DarkModeIcon,
+  Brightness7 as LightModeIcon,
+  AccountCircle,
+  Settings as SettingsIcon,
+  Logout as LogoutIcon,
+  Person as PersonIcon
+} from '@mui/icons-material';
+import { styled, alpha } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
+import { useThemeContext } from '../../context/ThemeContext';
 import "./header.css";
 
 const Search = styled('div')(({ theme }) => ({
@@ -74,7 +74,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const Header = ({ sidebarWidth, onMenuClick }) => {
+const Header = ({ sidebarWidth, onMenuClick, mobileOpen }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -82,6 +82,8 @@ const Header = ({ sidebarWidth, onMenuClick }) => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -119,6 +121,11 @@ const Header = ({ sidebarWidth, onMenuClick }) => {
     }
   };
 
+  const handleProfileNavigate = (path) => {
+    handleMenuClose();
+    navigate(path);
+  };
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -136,24 +143,84 @@ const Header = ({ sidebarWidth, onMenuClick }) => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={() => { handleMenuClose(); navigate('/profile'); }}>
-        <ListItemIcon>
-          <ProfileIcon fontSize="small" />
-        </ListItemIcon>
-        <ListItemText>Profile</ListItemText>
+      <MenuItem onClick={() => handleProfileNavigate('/profile')}>
+        <IconButton size="large" color="inherit">
+          <PersonIcon />
+        </IconButton>
+        <p>Profile</p>
       </MenuItem>
-      <MenuItem onClick={() => { handleMenuClose(); navigate('/settings'); }}>
-        <ListItemIcon>
-          <SettingsIcon fontSize="small" />
-        </ListItemIcon>
-        <ListItemText>Settings</ListItemText>
+      <MenuItem onClick={() => handleProfileNavigate('/settings')}>
+        <IconButton size="large" color="inherit">
+          <SettingsIcon />
+        </IconButton>
+        <p>Settings</p>
       </MenuItem>
       <Divider />
       <MenuItem onClick={handleLogout}>
-        <ListItemIcon>
-          <LogoutIcon fontSize="small" />
-        </ListItemIcon>
-        <ListItemText>Logout</ListItemText>
+        <IconButton size="large" color="inherit">
+          <LogoutIcon />
+        </IconButton>
+        <p>Logout</p>
+      </MenuItem>
+    </Menu>
+  );
+
+  const mobileMenuId = 'primary-search-account-menu-mobile';
+  const renderMobileMenu = (
+    <Menu
+      anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      id={mobileMenuId}
+      keepMounted
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
+    >
+      <MenuItem onClick={toggleDarkMode}>
+        <IconButton
+          size="large"
+          color="inherit"
+        >
+          {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
+        </IconButton>
+        <p>{darkMode ? 'Light Mode' : 'Dark Mode'}</p>
+      </MenuItem>
+      <MenuItem>
+        <IconButton size="large" color="inherit">
+          <Badge badgeContent={4} color="error">
+            <MailIcon />
+          </Badge>
+        </IconButton>
+        <p>Messages</p>
+      </MenuItem>
+      <MenuItem>
+        <IconButton
+          size="large"
+          color="inherit"
+        >
+          <Badge badgeContent={17} color="error">
+            <NotificationsIcon />
+          </Badge>
+        </IconButton>
+        <p>Notifications</p>
+      </MenuItem>
+      <MenuItem onClick={handleProfileMenuOpen}>
+        <IconButton
+          size="large"
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <AccountCircle />
+        </IconButton>
+        <p>Profile</p>
       </MenuItem>
     </Menu>
   );
@@ -188,21 +255,12 @@ const Header = ({ sidebarWidth, onMenuClick }) => {
           >
             <MenuIcon />
           </IconButton>
-
-          {/* Logo image */}
-          <Box 
-            component="img"
-            src="/logo.webp"
-            alt="Logo"
-            sx={{ 
-              height: 40, 
-              mr: 2,
-              display: { xs: 'none', sm: 'block' }
-            }}
-          />
           
-          {/* Search Bar */}
-          <Search>
+          {/* Search Bar - Adjusts width based on screen size */}
+          <Search sx={{ 
+            flexGrow: { xs: 1, md: 0 },
+            display: isSmall ? 'none' : 'block'
+          }}>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -215,55 +273,94 @@ const Header = ({ sidebarWidth, onMenuClick }) => {
             />
           </Search>
 
-          {/* Spacer to push notification and profile icons to the right */}
+          {/* Title shown on smaller screens */}
+          {isSmall && (
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ 
+                display: 'block',
+                flexGrow: 1,
+                textAlign: 'center',
+                fontWeight: 'bold'
+              }}
+            >
+              Pet Insurance
+            </Typography>
+          )}
+          
           <Box sx={{ flexGrow: 1 }} />
 
-          {/* Dark mode toggle */}
-          <Tooltip title={darkMode ? "Light Mode" : "Dark Mode"}>
-            <IconButton 
-              onClick={toggleDarkMode} 
-              color="inherit" 
-              sx={{ ml: 1 }}
-            >
-              {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
-            </IconButton>
-          </Tooltip>
+          {/* Desktop Navigation Icons */}
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            <Tooltip title={darkMode ? "Light Mode" : "Dark Mode"}>
+              <IconButton 
+                size="large" 
+                color="inherit" 
+                onClick={toggleDarkMode}
+                sx={{ color: 'white' }}
+              >
+                {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Messages">
+              <IconButton
+                size="large"
+                color="inherit"
+                sx={{ color: 'white' }}
+              >
+                <Badge badgeContent={4} color="error">
+                  <MailIcon />
+                </Badge>
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Notifications">
+              <IconButton
+                size="large"
+                color="inherit"
+                sx={{ color: 'white' }}
+              >
+                <Badge badgeContent={17} color="error">
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Account">
+              <IconButton
+                size="large"
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+                sx={{ color: 'white' }}
+              >
+                <Avatar sx={{ width: 32, height: 32, bgcolor: 'primary.dark' }}>
+                  {user?.name?.charAt(0) || 'U'}
+                </Avatar>
+              </IconButton>
+            </Tooltip>
+          </Box>
 
-          {/* Notifications */}
-          <Tooltip title="Notifications">
+          {/* Mobile Navigation Icons */}
+          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
-              color="inherit"
-              sx={{ ml: 1 }}
-            >
-              <Badge badgeContent={4} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-          </Tooltip>
-
-          {/* Profile */}
-          <Tooltip title="Account settings">
-            <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
+              aria-label="show more"
+              aria-controls={mobileMenuId}
               aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
+              onClick={handleMobileMenuOpen}
               color="inherit"
-              sx={{ ml: 1 }}
+              sx={{ color: 'white' }}
             >
-              <Avatar 
-                alt={user?.name || "User"} 
-                src={user?.avatar} 
-                sx={{ width: 32, height: 32, bgcolor: user?.avatar ? 'transparent' : '#FFD700' }}
-              >
-                {!user?.avatar && (user?.name?.charAt(0) || "U")}
-              </Avatar>
+              <MoreIcon />
             </IconButton>
-          </Tooltip>
+          </Box>
         </Toolbar>
       </AppBar>
+      {renderMobileMenu}
       {renderMenu}
     </Box>
   );

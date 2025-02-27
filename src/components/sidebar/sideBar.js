@@ -19,11 +19,12 @@ import {
   ExpandMore as ExpandMoreIcon,
   Insights as InsightsIcon,
   Assessment as ReportsIcon,
-  Analytics as AnalyticsIcon
+  Analytics as AnalyticsIcon,
+  Close as CloseIcon
 } from '@mui/icons-material';
-import { IconButton, useTheme, useMediaQuery } from '@mui/material';
+import { IconButton, useTheme, useMediaQuery, SwipeableDrawer, Box } from '@mui/material';
 
-const CustomSidebar = ({ collapsed, setCollapsed }) => {
+const CustomSidebar = ({ collapsed, setCollapsed, mobileOpen, setMobileOpen }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
@@ -36,34 +37,12 @@ const CustomSidebar = ({ collapsed, setCollapsed }) => {
   const handleNavigate = (path) => {
     navigate(path);
     if (isMobile) {
-      setCollapsed(true);
+      setMobileOpen(false);
     }
   };
 
-  return (
-    <ProSidebar
-      collapsed={collapsed}
-      rootStyles={{
-        height: "100vh",
-        position: "sticky",
-        top: 0,
-        left: 0,
-        [`.${menuClasses.container}`]: {
-          backgroundColor: "#1E3A8A", // Dark blue background
-          color: "black",
-          height: "100%",
-          width: collapsed ? "80px" : "250px",
-          position: "fixed",
-          top: 0,
-          left: 0,
-          transition: "width 0.3s ease",
-          display: "flex",
-          flexDirection: "column",
-          overflowY: "auto",
-          zIndex: 1100,
-        },
-      }}
-    >
+  const sidebarContent = (
+    <>
       {/* Logo and Collapse Button */}
       <div
         style={{
@@ -71,9 +50,12 @@ const CustomSidebar = ({ collapsed, setCollapsed }) => {
           textAlign: "center",
           flexShrink: 0,
           borderBottom: "1px solid rgba(255, 255, 255, 0.2)",
+          display: "flex",
+          justifyContent: isMobile ? "space-between" : "center",
+          alignItems: "center"
         }}
       >
-        {collapsed ? (
+        {collapsed && !isMobile ? (
           <img
             src="/logo.webp"
             alt="Logo"
@@ -84,16 +66,23 @@ const CustomSidebar = ({ collapsed, setCollapsed }) => {
             }}
           />
         ) : (
-          <img
-            src="/logo.webp"
-            alt="Logo"
-            style={{
-              width: "140px",
-              height: "auto",
-              maxHeight: "60px",
-              objectFit: "contain",
-            }}
-          />
+          <>
+            <img
+              src="/logo.webp"
+              alt="Logo"
+              style={{
+                width: isMobile ? "120px" : "140px",
+                height: "auto",
+                maxHeight: "60px",
+                objectFit: "contain",
+              }}
+            />
+            {isMobile && (
+              <IconButton onClick={() => setMobileOpen(false)} style={{ color: "white" }}>
+                <CloseIcon />
+              </IconButton>
+            )}
+          </>
         )}
         {!isMobile && (
           <IconButton onClick={toggleSidebar} style={{ color: "white", marginTop: "10px" }}>
@@ -115,8 +104,8 @@ const CustomSidebar = ({ collapsed, setCollapsed }) => {
               content: '""',
               position: "absolute",
               bottom: 0,
-              left: collapsed ? "15%" : "10%",
-              width: collapsed ? "70%" : "80%",
+              left: collapsed && !isMobile ? "15%" : "10%",
+              width: collapsed && !isMobile ? "70%" : "80%",
               height: "1px",
               backgroundColor: "rgba(255, 255, 255, 0.3)",
             },
@@ -133,7 +122,7 @@ const CustomSidebar = ({ collapsed, setCollapsed }) => {
           onClick={() => handleNavigate('/dashboard')}
           active={location.pathname === '/dashboard' || location.pathname === '/'}
         >
-          {!collapsed && "Dashboard"}
+          {(!collapsed || isMobile) && "Dashboard"}
         </MenuItem>
         
         {/* Pets */}
@@ -142,7 +131,7 @@ const CustomSidebar = ({ collapsed, setCollapsed }) => {
           onClick={() => handleNavigate('/pets')}
           active={location.pathname === '/pets'}
         >
-          {!collapsed && "Pets"}
+          {(!collapsed || isMobile) && "Pets"}
         </MenuItem>
         
         {/* Claims */}
@@ -151,7 +140,7 @@ const CustomSidebar = ({ collapsed, setCollapsed }) => {
           onClick={() => handleNavigate('/claims')}
           active={location.pathname === '/claims'}
         >
-          {!collapsed && "Claims"}
+          {(!collapsed || isMobile) && "Claims"}
         </MenuItem>
         
         {/* Policies */}
@@ -160,7 +149,7 @@ const CustomSidebar = ({ collapsed, setCollapsed }) => {
           onClick={() => handleNavigate('/policies')}
           active={location.pathname === '/policies'}
         >
-          {!collapsed && "Policies"}
+          {(!collapsed || isMobile) && "Policies"}
         </MenuItem>
         
         {/* Profile */}
@@ -169,7 +158,7 @@ const CustomSidebar = ({ collapsed, setCollapsed }) => {
           onClick={() => handleNavigate('/profile')}
           active={location.pathname === '/profile'}
         >
-          {!collapsed && "Profile"}
+          {(!collapsed || isMobile) && "Profile"}
         </MenuItem>
         
         {/* Settings */}
@@ -178,12 +167,12 @@ const CustomSidebar = ({ collapsed, setCollapsed }) => {
           onClick={() => handleNavigate('/settings')}
           active={location.pathname === '/settings'}
         >
-          {!collapsed && "Settings"}
+          {(!collapsed || isMobile) && "Settings"}
         </MenuItem>
         
         {/* Support */}
         <SubMenu 
-          label="Support" 
+          label={(!collapsed || isMobile) ? "Support" : ""}
           icon={<SupportIcon />}
           active={location.pathname.includes('/support')}
           defaultOpen={location.pathname.includes('/support')}
@@ -245,7 +234,7 @@ const CustomSidebar = ({ collapsed, setCollapsed }) => {
 
         {/* Insights */}
         <SubMenu 
-          label="Insights" 
+          label={(!collapsed || isMobile) ? "Insights" : ""}
           icon={<InsightsIcon />}
           active={location.pathname.includes('/insight')}
           defaultOpen={location.pathname.includes('/insight')}
@@ -284,6 +273,56 @@ const CustomSidebar = ({ collapsed, setCollapsed }) => {
 
       {/* Spacer to ensure sidebar fills height */}
       <div style={{ flexGrow: 1 }}></div>
+    </>
+  );
+
+  return isMobile ? (
+    <SwipeableDrawer
+      anchor="left"
+      open={mobileOpen}
+      onOpen={() => setMobileOpen(true)}
+      onClose={() => setMobileOpen(false)}
+      swipeAreaWidth={30}
+      hysteresis={0.3}
+      disableBackdropTransition={false}
+      ModalProps={{
+        keepMounted: true, // Better mobile performance
+      }}
+      sx={{
+        '& .MuiDrawer-paper': {
+          width: '280px',
+          backgroundColor: "#1E3A8A",
+          color: "white"
+        },
+      }}
+    >
+      {sidebarContent}
+    </SwipeableDrawer>
+  ) : (
+    <ProSidebar
+      collapsed={collapsed}
+      rootStyles={{
+        height: "100vh",
+        position: "sticky",
+        top: 0,
+        left: 0,
+        [`.${menuClasses.container}`]: {
+          backgroundColor: "#1E3A8A", // Dark blue background
+          color: "black",
+          height: "100%",
+          width: collapsed ? "80px" : "250px",
+          position: "fixed",
+          top: 0,
+          left: 0,
+          transition: "width 0.3s ease",
+          display: "flex",
+          flexDirection: "column",
+          overflowY: "auto",
+          zIndex: 1100,
+        },
+      }}
+    >
+      {sidebarContent}
     </ProSidebar>
   );
 };
