@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import {
   AppBar,
@@ -33,7 +34,6 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useThemeContext } from "../../context/ThemeContext";
 import "./header.css";
-
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -74,7 +74,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const Header = ({ sidebarWidth, onMenuClick, isMobile }) => {
+const Header = ({ sidebarWidth, onMenuClick }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -82,6 +82,7 @@ const Header = ({ sidebarWidth, onMenuClick, isMobile }) => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -109,39 +110,6 @@ const Header = ({ sidebarWidth, onMenuClick, isMobile }) => {
     navigate('/login');
   };
 
-  const menuId = "primary-search-account-menu";
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <Box sx={{ px: 2, py: 1, display: 'flex', alignItems: 'center' }}>
-        <Avatar src={user?.avatar} sx={{ mr: 1 }}>
-          {user?.name?.charAt(0) || 'P'}
-        </Avatar>
-        <Box>
-          <Typography variant="subtitle1">{user?.name || 'User'}</Typography>
-          <Typography variant="body2" color="textSecondary">{user?.email || ''}</Typography>
-        </Box>
-      </Box>
-      <Divider sx={{ my: 1 }} />
-      <MenuItem onClick={() => { handleMenuClose(); navigate('/profile'); }}>Profile</MenuItem>
-      <MenuItem onClick={() => { handleMenuClose(); navigate('/settings'); }}>Settings</MenuItem>
-      <MenuItem onClick={handleLogout}>Logout</MenuItem>
-    </Menu>
-  );
-
   return (
     <Box sx={{ 
       flexGrow: 0, 
@@ -155,7 +123,8 @@ const Header = ({ sidebarWidth, onMenuClick, isMobile }) => {
         color="default" 
         elevation={1} 
         sx={{ 
-          backgroundColor: darkMode ? '#333' : 'white',
+          backgroundColor: '#1E3A8A', // Royal blue color
+          color: 'white',
           boxShadow: '0 1px 3px rgba(0,0,0,0.12)'
         }}
       >
@@ -168,103 +137,141 @@ const Header = ({ sidebarWidth, onMenuClick, isMobile }) => {
             onClick={onMenuClick}
             sx={{ 
               mr: 2,
-              display: { xs: 'block', md: isMobile ? 'block' : 'none' }
+              display: { xs: 'block', md: 'block' }
             }}
           >
             <MenuIcon />
           </IconButton>
 
-          {/* Spacer to maintain layout after removing logo and title */}
-          <Box sx={{ flexGrow: 1 }} />
+          {/* Logo for header */}
+          <Box sx={{ display: { xs: 'flex', md: 'flex' }, alignItems: 'center', mr: 2 }}>
+            <img
+              src="/logo.webp"
+              alt="Logo"
+              style={{
+                height: '40px',
+                width: 'auto',
+                marginRight: '10px'
+              }}
+            />
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ display: { xs: 'none', sm: 'block' } }}
+            >
+              Pet Insurance
+            </Typography>
+          </Box>
 
           {/* Search Bar */}
-          <Tooltip title="Search policies and claims">
-            <Search
-              component="form"
-              onSubmit={(e) => {
-                e.preventDefault();
-                if (searchQuery.trim()) {
-                  navigate(`/search?q=${searchQuery}`);
-                }
-              }}
-              sx={{
-                position: "relative",
-                borderRadius: theme.shape.borderRadius,
-                backgroundColor: alpha(theme.palette.common.white, 0.15),
-                "&:hover": {
-                  backgroundColor: alpha(theme.palette.common.white, 0.25),
-                },
-                marginRight: theme.spacing(2),
-                marginLeft: 0,
-                width: "100%",
-                [theme.breakpoints.up("sm")]: {
-                  marginLeft: theme.spacing(3),
-                  width: "auto",
-                },
-              }}
-            >
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search policies..."
-                inputProps={{ "aria-label": "search" }}
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </Search>
-          </Tooltip>
+          <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ 'aria-label': 'search' }}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </Search>
 
+          <Box sx={{ flexGrow: 1 }} />
 
-          {/* Dark Mode Toggle */}
-          <Box sx={{ display: 'flex', alignItems: 'center', mr: 1 }}>
-            <Tooltip title="Toggle Dark/Light Mode">
-              <IconButton
-                onClick={toggleDarkMode}
+          {/* Right side menu items */}
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            {/* Dark mode toggle */}
+            <Tooltip title={darkMode ? "Light Mode" : "Dark Mode"}>
+              <IconButton 
                 color="inherit"
-                size="large"
+                onClick={toggleDarkMode}
               >
                 {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
               </IconButton>
             </Tooltip>
-          </Box>
 
-          {/* User Profile and Notifications */}
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+            {/* Notifications */}
             <Tooltip title="Notifications">
               <IconButton
-                size="large"
-                aria-label="show new notifications"
                 color="inherit"
               >
-                <Badge badgeContent={4} color="error">
+                <Badge badgeContent={2} color="error">
                   <NotificationsIcon />
                 </Badge>
               </IconButton>
             </Tooltip>
 
-            <Tooltip title="Profile">
+            {/* Profile */}
+            <Tooltip title="Account settings">
               <IconButton
-                size="large"
                 edge="end"
                 aria-label="account of current user"
-                aria-controls={menuId}
                 aria-haspopup="true"
                 onClick={handleProfileMenuOpen}
                 color="inherit"
               >
                 <Avatar
-                  src={user?.avatar}
+                  alt={user?.name || "User"}
+                  src={user?.photoURL}
                   sx={{ width: 32, height: 32 }}
-                >
-                  {user?.name?.charAt(0) || 'P'}
-                </Avatar>
+                />
               </IconButton>
             </Tooltip>
           </Box>
-          {renderMenu}
+
+          {/* Mobile menu button */}
+          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+            <IconButton
+              aria-label="show more"
+              aria-haspopup="true"
+              onClick={handleMobileMenuOpen}
+              color="inherit"
+            >
+              <Badge badgeContent={2} color="error">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+          </Box>
         </Toolbar>
       </AppBar>
+      
+      {/* Profile Menu */}
+      <Menu
+        anchorEl={anchorEl}
+        id="profile-menu"
+        keepMounted
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        open={isMenuOpen}
+        onClose={handleMenuClose}
+      >
+        <MenuItem onClick={() => { handleMenuClose(); navigate('/profile'); }}>
+          <ListItemIcon>
+            <ProfileIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText primary="Profile" />
+        </MenuItem>
+        <MenuItem onClick={() => { handleMenuClose(); navigate('/settings'); }}>
+          <ListItemIcon>
+            <SettingsIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText primary="Settings" />
+        </MenuItem>
+        <Divider />
+        <MenuItem onClick={handleLogout}>
+          <ListItemIcon>
+            <LogoutIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText primary="Logout" />
+        </MenuItem>
+      </Menu>
     </Box>
   );
 };
