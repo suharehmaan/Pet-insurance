@@ -1,16 +1,7 @@
-
-import { initializeApp } from "firebase/app";
-import { 
-  getFirestore, 
-  collection, 
-  addDoc, 
-  query, 
-  orderBy, 
-  onSnapshot, 
-  serverTimestamp, 
-  where, 
-  getDocs 
-} from "firebase/firestore";
+// Placeholder firebase implementation
+// Comment out firebase imports until we have proper configuration
+// import { initializeApp } from 'firebase/app';
+// import { getFirestore, collection, addDoc, query, where, orderBy, onSnapshot, serverTimestamp, getDocs } from 'firebase/firestore';
 
 // Firebase configuration - in a real app, this would be in .env file
 const firebaseConfig = {
@@ -23,34 +14,34 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase app
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+// const app = initializeApp(firebaseConfig);
+// const db = getFirestore(app);
 
 // Helper to get chat collection reference
-const getChatCollection = () => collection(db, "chats");
+// const getChatCollection = () => collection(db, "chats");
 
 // Send a message
 export const sendMessage = async (userId, message) => {
   try {
-    const docRef = await addDoc(getChatCollection(), {
-      userId,
-      message,
-      role: 'user',
-      timestamp: serverTimestamp()
-    });
-    
+    // const docRef = await addDoc(getChatCollection(), {
+    //   userId,
+    //   message,
+    //   role: 'user',
+    //   timestamp: serverTimestamp()
+    // });
+
     // Simulate agent response after a delay
-    setTimeout(async () => {
-      await addDoc(getChatCollection(), {
-        userId,
-        message: getAutomaticResponse(message),
-        role: 'agent',
-        agentName: 'PetCare Support',
-        timestamp: serverTimestamp()
-      });
-    }, 1500);
-    
-    return { success: true, messageId: docRef.id };
+    // setTimeout(async () => {
+    //   await addDoc(getChatCollection(), {
+    //     userId,
+    //     message: getAutomaticResponse(message),
+    //     role: 'agent',
+    //     agentName: 'PetCare Support',
+    //     timestamp: serverTimestamp()
+    //   });
+    // }, 1500);
+
+    return { success: true, messageId: 'placeholderId' }; // Placeholder return value
   } catch (error) {
     console.error("Error sending message:", error);
     return { success: false, error: error.message };
@@ -60,7 +51,7 @@ export const sendMessage = async (userId, message) => {
 // Get automatic response based on message content
 const getAutomaticResponse = (message) => {
   const lowerCaseMessage = message.toLowerCase();
-  
+
   if (lowerCaseMessage.includes('claim')) {
     return "To file a claim, please go to the Claims section and click on 'File New Claim'. If you need further assistance with a specific claim, please provide the claim number.";
   } else if (lowerCaseMessage.includes('policy') || lowerCaseMessage.includes('coverage')) {
@@ -78,49 +69,50 @@ const getAutomaticResponse = (message) => {
 
 // Subscribe to chat messages
 export const subscribeToMessages = (userId, callback) => {
-  const q = query(
-    getChatCollection(),
-    where("userId", "==", userId),
-    orderBy("timestamp", "asc")
-  );
-  
+  // const q = query(
+  //   getChatCollection(),
+  //   where("userId", "==", userId),
+  //   orderBy("timestamp", "asc")
+  // );
+
   // Create real-time listener
-  const unsubscribe = onSnapshot(q, (querySnapshot) => {
-    const messages = [];
-    querySnapshot.forEach((doc) => {
-      messages.push({
-        id: doc.id,
-        ...doc.data(),
-        timestamp: doc.data().timestamp ? doc.data().timestamp.toDate() : new Date()
-      });
-    });
-    callback(messages);
-  });
-  
-  return unsubscribe;
+  // const unsubscribe = onSnapshot(q, (querySnapshot) => {
+  //   const messages = [];
+  //   querySnapshot.forEach((doc) => {
+  //     messages.push({
+  //       id: doc.id,
+  //       ...doc.data(),
+  //       timestamp: doc.data().timestamp ? doc.data().timestamp.toDate() : new Date()
+  //     });
+  //   });
+  //   callback(messages);
+  // });
+
+  // return unsubscribe;
+  callback([]); //Placeholder callback
 };
 
 // Get chat history
 export const getChatHistory = async (userId) => {
   try {
-    const q = query(
-      getChatCollection(),
-      where("userId", "==", userId),
-      orderBy("timestamp", "asc")
-    );
-    
-    const querySnapshot = await getDocs(q);
-    const messages = [];
-    
-    querySnapshot.forEach((doc) => {
-      messages.push({
-        id: doc.id,
-        ...doc.data(),
-        timestamp: doc.data().timestamp ? doc.data().timestamp.toDate() : new Date()
-      });
-    });
-    
-    return { success: true, messages };
+    // const q = query(
+    //   getChatCollection(),
+    //   where("userId", "==", userId),
+    //   orderBy("timestamp", "asc")
+    // );
+
+    // const querySnapshot = await getDocs(q);
+    // const messages = [];
+
+    // querySnapshot.forEach((doc) => {
+    //   messages.push({
+    //     id: doc.id,
+    //     ...doc.data(),
+    //     timestamp: doc.data().timestamp ? doc.data().timestamp.toDate() : new Date()
+    //   });
+    // });
+
+    return { success: true, messages: [] }; // Placeholder return value
   } catch (error) {
     console.error("Error getting chat history:", error);
     return { success: false, error: error.message };
