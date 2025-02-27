@@ -71,24 +71,30 @@ const CustomSidebar = ({ collapsed, setCollapsed }) => {
           textAlign: "center",
           flexShrink: 0,
           borderBottom: "1px solid rgba(255, 255, 255, 0.2)",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center"
         }}
       >
-        <img
-          src="/logo.webp"
-          alt="Logo"
-          style={{
-            width: collapsed ? "40px" : "140px", 
-            height: "auto",
-            maxHeight: "60px",
-            objectFit: "contain",
-            margin: "0 auto",
-            display: "block"
-          }}
-        />
+        {collapsed ? (
+          <img
+            src="/logo.webp"
+            alt="Logo"
+            style={{
+              width: "40px",
+              height: "40px",
+              objectFit: "contain",
+            }}
+          />
+        ) : (
+          <img
+            src="/logo.webp"
+            alt="Logo"
+            style={{
+              width: "140px",
+              height: "auto",
+              maxHeight: "60px",
+              objectFit: "contain",
+            }}
+          />
+        )}
         {!isMobile && (
           <IconButton onClick={toggleSidebar} style={{ color: "white", marginTop: "10px" }}>
             {collapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}
