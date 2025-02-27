@@ -1,0 +1,15 @@
+modules = ["nodejs-20"]
+[deployment]
+run = ["sh", "-c", "npm start"]
+build = ["sh", "-c", "npm run build"]
+
+[workflows]
+runButton = "Start React App"
+
+[[workflows.workflow]]
+name = "Start React App"
+author = 40071568
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm start"
