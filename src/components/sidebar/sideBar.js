@@ -49,8 +49,8 @@ const CustomSidebar = ({ collapsed, setCollapsed }) => {
         top: 0,
         left: 0,
         [`.${menuClasses.container}`]: {
-          backgroundColor: "#1C3FEC", // Royal blue background
-          color: "white",
+          backgroundColor: "#1E3A8A", // Dark blue background
+          color: "black",
           height: "100%",
           width: collapsed ? "80px" : "250px",
           position: "fixed",
@@ -106,9 +106,9 @@ const CustomSidebar = ({ collapsed, setCollapsed }) => {
       <Menu
         menuItemStyles={{
           button: ({ active }) => ({
-            backgroundColor: active ? "#3652E5" : "transparent",
-            color: active ? "#FFD700" : "#FFFFFF", // White text, gold when active
-            borderBottom: "1px solid rgba(255, 255, 255, 0.3)", // More visible separator lines
+            backgroundColor: active ? "#27408B" : "transparent",
+            color: active ? "#FFD700" : "#1E90FF", // Blue text, yellow when active
+            borderBottom: "1px solid rgba(255, 255, 255, 0.2)", // More visible separator lines
             padding: "12px 20px",
             position: "relative",
             "&:after": {
@@ -118,12 +118,11 @@ const CustomSidebar = ({ collapsed, setCollapsed }) => {
               left: collapsed ? "15%" : "10%",
               width: collapsed ? "70%" : "80%",
               height: "1px",
-              backgroundColor: "rgba(255, 255, 255, 0.4)",
+              backgroundColor: "rgba(255, 255, 255, 0.3)",
             },
             "&:hover": {
-              backgroundColor: "#4169E1",
+              backgroundColor: "#4169e1",
               color: "#FFD700",
-              boxShadow: "0 0 10px rgba(255, 255, 255, 0.1) inset"
             },
           }),
         }}
