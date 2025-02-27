@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Box, CssBaseline, useMediaQuery, useTheme } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -9,7 +10,6 @@ import ClaimsPage from "../pages/ClaimsPage";
 import PolicyPage from "../pages/PolicyPage";
 import SettingsPage from "../pages/SettingsPage";
 import SupportPage from "../pages/SupportPage";
-import Dashboard from "../content/dashboard";
 
 const Layout = () => {
   const theme = useTheme();
@@ -33,14 +33,6 @@ const Layout = () => {
     }
   };
 
-  // Import all page components
-  import MainDashboard from "../content/MainDashboard";
-  import PetsPage from "../pages/PetsPage";
-  import ClaimsPage from "../pages/ClaimsPage";
-  import PolicyPage from "../pages/PolicyPage";
-  import SupportPage from "../pages/SupportPage";
-  import SettingsPage from "../pages/SettingsPage";
-
   // Function to render the appropriate content based on the current route
   const renderContent = () => {
     const path = location.pathname;
@@ -61,6 +53,8 @@ const Layout = () => {
       return <SettingsPage />;
     } else if (path === '/search') {
       return <div>Search Results</div>; // Placeholder, needs a SearchResults component
+    } else if (path.startsWith('/insight')) {
+      return <div>Insights Page</div>; // Placeholder for Insights
     } else {
       return <div>Page Not Found</div>; // Placeholder, consider a dedicated 404 page
     }
