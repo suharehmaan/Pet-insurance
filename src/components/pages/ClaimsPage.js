@@ -56,8 +56,8 @@ const ClaimsPage = () => {
 };
 
 export default ClaimsPage;
+import React, { useState } from "react";
 import { 
-  Box, 
   Typography, 
   Paper, 
   Table, 
@@ -307,4 +307,3 @@ const ClaimsPage = () => {
 };
 
 export default ClaimsPage;
-import React, { useState } from "react";

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Box, CssBaseline, useMediaQuery, useTheme } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import Header from "./Header";
-// Import all page components
+// Page components referenced below
 import MainDashboard from "../content/MainDashboard";
 import PetsPage from "../pages/PetsPage";
 import ClaimsPage from "../pages/ClaimsPage";
