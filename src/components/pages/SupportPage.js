@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
@@ -10,7 +9,6 @@ import {
   CardContent,
   TextField,
   Button,
-  Divider,
   List,
   ListItem,
   ListItemText,
@@ -33,7 +31,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import SendIcon from '@mui/icons-material/Send';
 import HelpIcon from '@mui/icons-material/Help';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-import ChatSupport from '../chat/ChatSupport';
 
 const SupportPage = () => {
   const location = useLocation();
@@ -81,7 +78,7 @@ const SupportPage = () => {
 
   const handleSendMessage = () => {
     if (chatInput.trim() === '') return;
-    
+
     // Add user message
     const userMessage = {
       id: chatMessages.length + 1,
@@ -89,10 +86,10 @@ const SupportPage = () => {
       message: chatInput,
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     };
-    
+
     setChatMessages([...chatMessages, userMessage]);
     setChatInput('');
-    
+
     // Simulate agent response after a short delay
     setTimeout(() => {
       const agentMessage = {
@@ -140,7 +137,7 @@ const SupportPage = () => {
       answer: 'To get a quote, you\'ll need to provide your pet\'s species (dog or cat), breed, age, and your zip code. Additional information about your pet\'s health history may be required during enrollment.'
     }
   ];
-  
+
   // Filter FAQs based on search
   const filteredFaqs = searchQuery 
     ? faqs.filter(faq => 
@@ -195,7 +192,7 @@ const SupportPage = () => {
                         Our agents are available Mon-Fri, 9AM - 6PM EST
                       </Typography>
                     </Box>
-                    
+
                     {/* Chat Messages */}
                     <Box sx={{ flexGrow: 1, p: 2, overflowY: 'auto' }}>
                       {chatMessages.map((msg) => (
@@ -236,7 +233,7 @@ const SupportPage = () => {
                         </Box>
                       ))}
                     </Box>
-                    
+
                     {/* Chat Input */}
                     <Box sx={{ p: 2, borderTop: '1px solid #e0e0e0' }}>
                       <TextField
@@ -267,7 +264,7 @@ const SupportPage = () => {
             )}
           </Box>
         );
-        
+
       case 1: // FAQs
         return (
           <Box>
@@ -287,7 +284,7 @@ const SupportPage = () => {
                 }}
               />
             </Box>
-            
+
             <Box sx={{ maxWidth: 800, mx: 'auto' }}>
               {filteredFaqs.length === 0 ? (
                 <Box sx={{ textAlign: 'center', my: 4 }}>
@@ -327,7 +324,7 @@ const SupportPage = () => {
             </Box>
           </Box>
         );
-        
+
       case 2: // Contact Us
         return (
           <Box>
@@ -362,7 +359,7 @@ const SupportPage = () => {
                   </CardContent>
                 </Card>
               </Grid>
-              
+
               <Grid item xs={12} md={4}>
                 <Card sx={{ height: '100%' }}>
                   <CardContent>
@@ -391,7 +388,7 @@ const SupportPage = () => {
                   </CardContent>
                 </Card>
               </Grid>
-              
+
               <Grid item xs={12} md={4}>
                 <Card sx={{ height: '100%' }}>
                   <CardContent>
@@ -420,7 +417,7 @@ const SupportPage = () => {
                   </CardContent>
                 </Card>
               </Grid>
-              
+
               <Grid item xs={12} sx={{ mt: 4 }}>
                 <Paper sx={{ p: 3 }}>
                   <Typography variant="h5" gutterBottom>
@@ -429,7 +426,7 @@ const SupportPage = () => {
                   <Typography variant="body2" color="text.secondary" paragraph>
                     Fill out the form below and we'll get back to you as soon as possible.
                   </Typography>
-                  
+
                   <Grid container spacing={2}>
                     <Grid item xs={12} sm={6}>
                       <TextField
@@ -481,7 +478,7 @@ const SupportPage = () => {
             </Grid>
           </Box>
         );
-        
+
       default:
         return null;
     }
@@ -492,7 +489,7 @@ const SupportPage = () => {
       <Typography variant="h4" fontWeight={600} gutterBottom>
         Support Center
       </Typography>
-      
+
       <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
         <Tabs 
           value={tabValue} 
@@ -516,7 +513,7 @@ const SupportPage = () => {
           />
         </Tabs>
       </Box>
-      
+
       {renderTabContent()}
     </Box>
   );

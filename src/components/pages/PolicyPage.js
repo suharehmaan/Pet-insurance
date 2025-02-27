@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import {
   Box,
@@ -7,7 +6,6 @@ import {
   Grid,
   Card,
   CardContent,
-  Divider,
   Button,
   Chip,
   List,
@@ -30,7 +28,7 @@ import EventIcon from '@mui/icons-material/Event';
 import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
 
 const PolicyPage = () => {
-  const [policies, setPolicies] = useState([
+  const [policies] = useState([
     {
       id: 'POL-1001',
       petName: 'Max',
@@ -88,7 +86,7 @@ const PolicyPage = () => {
       <Typography variant="h4" fontWeight={600} gutterBottom>
         Your Pet Insurance Policies
       </Typography>
-      
+
       {/* Policy Summary Cards */}
       <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid item xs={12} sm={6} md={3}>
@@ -140,7 +138,7 @@ const PolicyPage = () => {
           </Card>
         </Grid>
       </Grid>
-      
+
       {/* Detailed Policy Cards */}
       {policies.map((policy) => (
         <Paper key={policy.id} elevation={2} sx={{ mb: 4, overflow: 'hidden' }}>
@@ -184,7 +182,7 @@ const PolicyPage = () => {
               </Grid>
             </Grid>
           </Box>
-          
+
           {/* Policy Details */}
           <Box sx={{ p: 3 }}>
             <Grid container spacing={4}>
@@ -250,7 +248,7 @@ const PolicyPage = () => {
                   </ListItem>
                 </List>
               </Grid>
-              
+
               {/* Right Column - Coverage Details */}
               <Grid item xs={12} md={6}>
                 <Typography variant="h6" gutterBottom>
@@ -281,7 +279,7 @@ const PolicyPage = () => {
                     </TableBody>
                   </Table>
                 </TableContainer>
-                
+
                 <Typography variant="subtitle2" gutterBottom>
                   Recent Payments
                 </Typography>
@@ -317,7 +315,7 @@ const PolicyPage = () => {
                 </TableContainer>
               </Grid>
             </Grid>
-            
+
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 3 }}>
               <Button variant="outlined" sx={{ mr: 1 }}>
                 Download Policy
@@ -335,7 +333,7 @@ const PolicyPage = () => {
           </Box>
         </Paper>
       ))}
-      
+
       {/* Add New Policy Button */}
       <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
         <Button 

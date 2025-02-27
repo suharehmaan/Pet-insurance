@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import {
   Box,
@@ -23,7 +22,6 @@ import {
   Tabs
 } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
-import LockIcon from '@mui/icons-material/Lock';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PaymentIcon from '@mui/icons-material/Payment';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -45,14 +43,14 @@ const SettingsPage = () => {
     state: 'NY',
     zip: '10001',
   });
-  
+
   const [notifications, setNotifications] = useState({
     email: true,
     sms: false,
     pushNotifications: true,
     marketingEmails: false,
   });
-  
+
   const [paymentMethods, setPaymentMethods] = useState([
     {
       id: 1,
@@ -126,7 +124,7 @@ const SettingsPage = () => {
                 </CardContent>
               </Card>
             </Grid>
-            
+
             <Grid item xs={12} md={8}>
               <Paper sx={{ p: 3 }}>
                 <Typography variant="h6" gutterBottom>Personal Information</Typography>
@@ -173,7 +171,7 @@ const SettingsPage = () => {
                     />
                   </Grid>
                 </Grid>
-                
+
                 <Typography variant="h6" sx={{ mt: 3 }} gutterBottom>Address</Typography>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
@@ -217,7 +215,7 @@ const SettingsPage = () => {
                     />
                   </Grid>
                 </Grid>
-                
+
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 3 }}>
                   <Button variant="outlined" sx={{ mr: 1 }}>
                     Cancel
@@ -236,7 +234,7 @@ const SettingsPage = () => {
             </Grid>
           </Grid>
         );
-        
+
       case 1: // Security
         return (
           <Paper sx={{ p: 3 }}>
@@ -267,9 +265,9 @@ const SettingsPage = () => {
                 />
               </Grid>
             </Grid>
-            
+
             <Divider sx={{ my: 3 }} />
-            
+
             <Typography variant="h6" gutterBottom>Two-Factor Authentication</Typography>
             <Box sx={{ mb: 2 }}>
               <FormControlLabel
@@ -280,7 +278,7 @@ const SettingsPage = () => {
                 Adding an extra layer of security will help protect your account.
               </Typography>
             </Box>
-            
+
             <Button 
               variant="contained" 
               sx={{ 
@@ -291,9 +289,9 @@ const SettingsPage = () => {
             >
               Set Up Two-Factor Authentication
             </Button>
-            
+
             <Divider sx={{ my: 3 }} />
-            
+
             <Typography variant="h6" gutterBottom>Login Sessions</Typography>
             <List>
               <ListItem>
@@ -319,12 +317,12 @@ const SettingsPage = () => {
             </List>
           </Paper>
         );
-        
+
       case 2: // Notifications
         return (
           <Paper sx={{ p: 3 }}>
             <Typography variant="h6" gutterBottom>Notification Preferences</Typography>
-            
+
             <List>
               <ListItem>
                 <ListItemIcon>
@@ -341,7 +339,7 @@ const SettingsPage = () => {
                 />
               </ListItem>
               <Divider variant="inset" component="li" />
-              
+
               <ListItem>
                 <ListItemIcon>
                   <MobileFriendlyIcon color="primary" />
@@ -357,7 +355,7 @@ const SettingsPage = () => {
                 />
               </ListItem>
               <Divider variant="inset" component="li" />
-              
+
               <ListItem>
                 <ListItemIcon>
                   <NotificationsIcon color="primary" />
@@ -373,7 +371,7 @@ const SettingsPage = () => {
                 />
               </ListItem>
               <Divider variant="inset" component="li" />
-              
+
               <ListItem>
                 <ListItemIcon>
                   <MailOutlineIcon color="primary" />
@@ -389,7 +387,7 @@ const SettingsPage = () => {
                 />
               </ListItem>
             </List>
-            
+
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 3 }}>
               <Button 
                 variant="contained" 
@@ -403,12 +401,12 @@ const SettingsPage = () => {
             </Box>
           </Paper>
         );
-        
+
       case 3: // Payment Methods
         return (
           <Paper sx={{ p: 3 }}>
             <Typography variant="h6" gutterBottom>Payment Methods</Typography>
-            
+
             <Grid container spacing={3} sx={{ mb: 3 }}>
               {paymentMethods.map((method) => (
                 <Grid item xs={12} sm={6} md={4} key={method.id}>
@@ -449,7 +447,7 @@ const SettingsPage = () => {
                   </Card>
                 </Grid>
               ))}
-              
+
               <Grid item xs={12} sm={6} md={4}>
                 <Card 
                   sx={{ 
@@ -478,15 +476,15 @@ const SettingsPage = () => {
                 </Card>
               </Grid>
             </Grid>
-            
+
             <Divider sx={{ my: 3 }} />
-            
+
             <Typography variant="h6" gutterBottom>Billing Address</Typography>
             <FormControlLabel
               control={<Checkbox defaultChecked />}
               label="Same as profile address"
             />
-            
+
             <Grid container spacing={2} sx={{ mt: 1 }}>
               <Grid item xs={12}>
                 <TextField
@@ -527,7 +525,7 @@ const SettingsPage = () => {
             </Grid>
           </Paper>
         );
-        
+
       default:
         return null;
     }
@@ -538,7 +536,7 @@ const SettingsPage = () => {
       <Typography variant="h4" fontWeight={600} gutterBottom>
         Account Settings
       </Typography>
-      
+
       <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
         <Tabs 
           value={tabValue} 
@@ -568,7 +566,7 @@ const SettingsPage = () => {
           />
         </Tabs>
       </Box>
-      
+
       {renderTabContent()}
     </Box>
   );

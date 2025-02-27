@@ -107,33 +107,33 @@ const CustomSidebar = ({ collapsed, toggleSidebar }) => {
         <MenuItem component={<Link to="/dashboard" />} icon={<Dashboard />}>
           {!collapsed && "Dashboard"}
         </MenuItem>
-        
+
         {/* Policies */}
         <MenuItem component={<Link to="/policies" />} icon={<Policy />}>
           {!collapsed && "Policies"}
         </MenuItem>
-        
+
         {/* Claims */}
         <MenuItem component={<Link to="/claims" />} icon={<TableChart />}>
           {!collapsed && "Claims"}
         </MenuItem>
-        
+
         {/* Profile */}
         <MenuItem component={<Link to="/profile" />} icon={<Person />}>
           {!collapsed && "Profile"}
         </MenuItem>
-        
+
         {/* Settings */}
         <MenuItem component={<Link to="/settings" />} icon={<Settings />}>
           {!collapsed && "Settings"}
         </MenuItem>
-        
+
         {/* Support */}
         <SubMenu 
           label="Support" 
           icon={<Help />}
           rootStyles={{
-            ['& > ul']: {
+            '& > ul': {
               backgroundColor: 'rgba(0, 0, 0, 0.2)',
             },
           }}
@@ -178,7 +178,7 @@ const CustomSidebar = ({ collapsed, toggleSidebar }) => {
           label="Insights" 
           icon={<Insights />}
           rootStyles={{
-            ['& > ul']: {
+            '& > ul': {
               backgroundColor: 'rgba(0, 0, 0, 0.2)',
             },
           }}
