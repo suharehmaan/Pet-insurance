@@ -1,0 +1,27 @@
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo-text {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.search-bar {
+  flex-grow: 1;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.user-menu {
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.user-menu:hover {
+  opacity: 0.8;
+}
